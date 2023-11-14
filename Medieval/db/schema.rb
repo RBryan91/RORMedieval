@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_13_161035) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_14_154745) do
   create_table "answers", force: :cascade do |t|
     t.integer "enigme_id", null: false
     t.boolean "true"
@@ -101,6 +101,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_13_161035) do
     t.integer "po"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password"
+    t.string "password_digest"
   end
 
   create_table "quests", force: :cascade do |t|

@@ -1,0 +1,18 @@
+<!-- app/views/players/signup.html.erb -->
+<h1>Inscription</h1>
+
+<%= form_with(model: @player, url: players_path, method: :post) do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div>
+    <%= form.submit "S'inscrire" %>
+  </div>
+<% end %>

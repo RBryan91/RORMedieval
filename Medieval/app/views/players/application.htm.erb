@@ -1,0 +1,6 @@
+<% if user_signed_in? %>
+  <%= link_to 'Déconnexion', logout_path, method: :delete %>
+<% else %>
+  <%= link_to 'Inscription', new_user_path %>
+  <%= link_to 'Connexion', login_path %>
+<% end %>
