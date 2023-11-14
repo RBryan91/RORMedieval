@@ -1,13 +1,14 @@
 class StepsController < ApplicationController
     def new
         @step = Step.new
-        @quest_id = params[:quest_id]
+        @step.xp = 0;
+        @step.quest_id = session[:quest_id]
       end
 
     def create
-        @step = step.new(step_params)
+        @step = Step.new(step_params)
       if @step.save
-          redirect_to new_step_path(quest_id: @quest.id)
+          redirect_to new_step_path
         else
           render :new, status: :unprocessable_entity
         end

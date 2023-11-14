@@ -16,9 +16,8 @@
       <div><%= message %></div>
       <% end %>
   </div>
-  <a href="/items">
-        <%= "créer un item" %>
-      </a>
+  <%= link_to "Créer un item", new_item_path %>
+
 
   <div>
     <%= form.label :xp %><br>
@@ -28,7 +27,7 @@
       <% end %>
   </div>
 
-  <%= form.hidden_field :master_id, value: params[:master_id] %>
+  <%= form.hidden_field :master_id, value: session[:master_id] %>
 
   <div>
     <%= form.submit %>
