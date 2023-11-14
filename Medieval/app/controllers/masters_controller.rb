@@ -1,4 +1,27 @@
 class MastersController < ApplicationController
+    before_action :require_login, except: [:login, :authenticate, :new, :create]
+
+    def login
+      render 'login'
+    end
+
+    def authenticate
+      @master = Master.find_by(username: params[:username])
+      
+      if @master && @master.authenticate(params[:password])
+        session[:master_id] = @master.id
+        redirect_to @master
+      else
+        flash[:error] = 'Invalid username or password'
+        render :login
+      end
+    end
+
+    def logout
+      session[:master_id] = nil
+      session[:quest_id] = nil
+      redirect_to login_masters_path
+    end
 
     def show
       @master = Master.find(params[:id])
@@ -23,4 +46,5 @@ class MastersController < ApplicationController
       def master_params 
         params.require(:master).permit(:username, :password)
       end
+
 end
