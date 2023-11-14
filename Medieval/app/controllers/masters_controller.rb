@@ -12,6 +12,7 @@ class MastersController < ApplicationController
         @master = Master.new(master_params)
         
       if @master.save
+          session[:master_id] = @master.id
           redirect_to @master
         else
           render :new, status: :unprocessable_entity

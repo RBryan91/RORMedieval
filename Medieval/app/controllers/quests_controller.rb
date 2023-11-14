@@ -1,12 +1,14 @@
 class QuestsController < ApplicationController
     def new
         @quest = Quest.new
+        @quest.xp = 0
     end
 
     def create
         @quest = Quest.new(quest_params)
         if @quest.save
-          redirect_to new_step_path(quest_id: @quest.id)
+          session[:quest_id] = @quest.id
+          redirect_to new_step_path
         else
           render :new, status: :unprocessable_entity
         end
