@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+    before_action :require_login
+
     def new
         @item = Item.new
         @item.xp = 0

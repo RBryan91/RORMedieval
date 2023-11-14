@@ -1,4 +1,6 @@
 class StepsController < ApplicationController
+    before_action :require_login
+
     def new
         @step = Step.new
         @step.xp = 0;
