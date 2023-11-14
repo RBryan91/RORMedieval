@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  xp: 1
+  item: one
+  player: one
+  master: one
+
+two:
+  title: MyString
+  xp: 1
+  item: two
+  player: two
+  master: two

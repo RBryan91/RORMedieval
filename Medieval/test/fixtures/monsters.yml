@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  force: 1
+  pv: 1
+  avatar: MyString
+  item: one
+  rate: 1
+  name: MyString
+  active: false
+  message: MyText
+
+two:
+  force: 1
+  pv: 1
+  avatar: MyString
+  item: two
+  rate: 1
+  name: MyString
+  active: false
+  message: MyText

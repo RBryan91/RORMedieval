@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  enigme: one
+  'true': false
+  title: MyText
+
+two:
+  enigme: two
+  'true': false
+  title: MyText

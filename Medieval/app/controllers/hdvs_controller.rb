@@ -1,0 +1,2 @@
+class HdvsController < ApplicationController
+end

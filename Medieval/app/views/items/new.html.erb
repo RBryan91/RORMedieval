@@ -1,0 +1,47 @@
+<h1>New Item</h1>
+
+<%= form_with model: @item do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+    <% @item.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= form.label :category %><br>
+    <%= form.collection_select :category, ["Arme", "Bouclier", "Casque"], :to_s, :humanize %>
+    <% @item.errors.full_messages_for(:category).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= form.label :xp %><br>
+    <%= form.number_field :xp %>
+    <% @item.errors.full_messages_for(:xp).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= form.label :force %><br>
+    <%= form.number_field :force %>
+    <% @item.errors.full_messages_for(:force).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= form.label :pv %><br>
+    <%= form.number_field :pv %>
+    <% @item.errors.full_messages_for(:pv).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

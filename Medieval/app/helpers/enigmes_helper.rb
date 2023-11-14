@@ -1,0 +1,2 @@
+module EnigmesHelper
+end
