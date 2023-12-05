@@ -1,18 +1,23 @@
-<!-- app/views/players/signup.html.erb -->
-<h1>Inscription</h1>
+<h1>New Player</h1>
 
-<%= form_with(model: @player, url: players_path, method: :post) do |form| %>
+<%= form_with model: @player do |form| %>
   <div>
-    <%= form.label :name %>
+    <%= form.label :name %><br>
     <%= form.text_field :name %>
+    <% @player.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
   </div>
 
   <div>
-    <%= form.label :password %>
+    <%= form.label :password %><br>
     <%= form.password_field :password %>
+    <% @player.errors.full_messages_for(:password).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
   </div>
 
   <div>
-    <%= form.submit "S'inscrire" %>
+    <%= form.submit %>
   </div>
 <% end %>

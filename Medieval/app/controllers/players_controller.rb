@@ -1,15 +1,14 @@
 class PlayersController < ApplicationController
-    before_action :require_login_player, except: [:new, :create, :connexion, :authenticate]
+    before_action :require_login_player, except: [:new, :create, :login, :authenticate]
+
+    def login
+      render 'login'
+    end
     # Action pour afficher le profil d'un joueur
     def show
       @player = Player.find(params[:id])
-  
-      # Vérifier si le joueur est connecté
-      unless session[:player_id] == @player.id
-        redirect_to new_session_path, alert: "Vous devez être connecté pour accéder à cette page."
-      end
+      @characters = @player.characters
     end
-  
     # Action pour afficher le formulaire d'inscription d'un joueur
     def new
       @player = Player.new
@@ -32,14 +31,9 @@ class PlayersController < ApplicationController
       end
     end
 
-    def destroy_session
+    def logout
       session[:player_id] = nil
-      redirect_to new_player_path, notice: "Vous avez été déconnecté avec succès."
-    end
-
-     # Action pour afficher le formulaire de connexion d'un joueur
-    def connexion
-      # Affiche le formulaire de connexion
+      redirect_to login_players_path
     end
 
     # Action pour traiter la soumission du formulaire de connexion
@@ -51,7 +45,7 @@ class PlayersController < ApplicationController
         redirect_to player_path(@player), notice: "Connexion réussie !"
       else
         flash.now[:alert] = "Nom d'utilisateur ou mot de passe incorrect."
-        render :connexion, status: :unprocessable_entity
+        redirect_to login_players_path
       end
     end
   
