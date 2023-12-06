@@ -1,12 +1,4 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
-  get "/masters", to: "masters#new"
-  resources :masters
-
-  resources :quests
-
-  get "/items", to: "items#new"
-=======
 
   get "/masters", to: "masters#login"
   get "/logout", to: "masters#logout"
@@ -15,7 +7,6 @@ Rails.application.routes.draw do
     get 'login', on: :collection
   end
   resources :quests 
->>>>>>> f2ce67cc35a063e0bdf6d2c859780f5dbb741091
   resources :items
   resources :steps
 

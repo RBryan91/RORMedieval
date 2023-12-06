@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema[7.1].define(version: 2023_11_14_154745) do
-=======
-ActiveRecord::Schema[7.1].define(version: 2023_11_14_110828) do
->>>>>>> f2ce67cc35a063e0bdf6d2c859780f5dbb741091
   create_table "answers", force: :cascade do |t|
     t.integer "enigme_id", null: false
     t.boolean "true"
