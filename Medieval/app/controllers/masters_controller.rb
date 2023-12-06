@@ -2,6 +2,10 @@ class MastersController < ApplicationController
 
     def show
       @master = Master.find(params[:id])
+      @quest = @master.quests
+      @step = Step.where(quest_id: @quest.pluck(:id))
+      session.delete(:check)
+      
     end
 
     def new

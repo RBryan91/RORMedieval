@@ -1,0 +1,41 @@
+<h1>New Answer</h1>
+
+<%= form_with model: @answer do |form| %>
+  <div>
+    <%= form.label :reponse_1 %><br>
+    <%= form.text_field :reponse_1 %>
+    <% @answer.errors.full_messages_for(:reponse_1).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= form.label :reponse_2 %><br>
+    <%= form.text_field :reponse_2 %>
+    <% @answer.errors.full_messages_for(:reponse_2).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= form.label :reponse_3  %><br>
+    <%= form.text_field :reponse_3 %>
+    <% @answer.errors.full_messages_for(:reponse_3).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+  <%= form.label :true %><br>
+  <%= form.collection_select :true, [['reponse_1', 'Reponse 1'], ['reponse_2', 'Reponse 2'], ['reponse_3', 'Reponse 3']], :first, :last %>
+  <% @answer.errors.full_messages_for(:true).each do |message| %>
+    <div><%= message %></div>
+  <% end %>
+</div>
+
+  <%= form.hidden_field :enigme_id, value: params[:enigme_id] %>
+
+  <div>
+    <%= form.submit 'Confirme tekas' %>
+  </div>
+<% end %>

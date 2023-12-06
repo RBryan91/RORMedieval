@@ -22,7 +22,7 @@
 
   <div>
     <%= form.label :monster_id %><br>
-    <%= form.collection_select :monster_id, Monster.all, :id, :name %>
+    <%= form.collection_select :monster_id, Monster.all, :id, :name, { include_blank: 'Sélectionnez un élément' } %>
     <% @step.errors.full_messages_for(:monster_id).each do |message| %>
       <div><%= message %></div>
       <% end %>
@@ -34,7 +34,7 @@
 
     <div>
     <%= form.label :enigme_id %><br>
-    <%= form.collection_select :enigme_id, Enigme.all, :id, :name %>
+    <%= form.collection_select :enigme_id, Enigme.all, :id, :titre %>
     <% @step.errors.full_messages_for(:enigme_id).each do |message| %>
       <div><%= message %></div>
       <% end %>
@@ -42,8 +42,15 @@
   <a href="/enigmes">
         <%= "créer une enigme " %>
     </a>
-
+    
   <div>
     <%= form.submit %>
+  </div>
+  <div>
+    <% if session[:check] %> 
+        <a href="/masters/<%= session[:master_id] %>">
+          <%= "Finir" %>
+        </a>
+    <% end %> 
   </div>
 <% end %>
