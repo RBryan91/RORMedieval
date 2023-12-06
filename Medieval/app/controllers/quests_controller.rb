@@ -1,4 +1,6 @@
 class QuestsController < ApplicationController
+    before_action :require_login
+
     def new
         @quest = Quest.new
         @quest.xp = 0

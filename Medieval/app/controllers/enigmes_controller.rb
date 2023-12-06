@@ -1,4 +1,6 @@
 class EnigmesController < ApplicationController
+    before_action :require_login
+
     def new
         @enigme = Enigme.new
       end
@@ -17,4 +19,5 @@ class EnigmesController < ApplicationController
         def enigme_params 
           params.require(:enigme).permit(:titre)
         end
+
 end

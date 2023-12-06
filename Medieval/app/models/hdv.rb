@@ -1,4 +1,4 @@
 class Hdv < ApplicationRecord
   belongs_to :item
-  belongs_to :player
+  belongs_to :character
 end

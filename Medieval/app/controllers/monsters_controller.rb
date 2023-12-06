@@ -1,5 +1,6 @@
 class MonstersController < ApplicationController
-
+      before_action :require_login
+      
       def new
         @monster = Monster.new
         @monster.pv = 0
@@ -20,4 +21,5 @@ class MonstersController < ApplicationController
         def monster_params 
           params.require(:monster).permit(:name, :force, :pv, :item_id, :rate)
         end
+
 end

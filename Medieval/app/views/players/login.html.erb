@@ -1,0 +1,19 @@
+<h1>Connexion</h1>
+
+<%= form_with(model: Player.new, url: authenticatePlayer_path, method: :post) do |form| %> 
+   <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div>
+    <%= form.submit "Se connecter" %>
+  </div>
+<% end %>
+<%= link_to "Register", new_player_path %>
+

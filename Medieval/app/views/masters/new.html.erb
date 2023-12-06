@@ -11,7 +11,7 @@
 
   <div>
     <%= form.label :password %><br>
-    <%= form.text_field :password %>
+    <%= form.password_field :password %>
     <% @master.errors.full_messages_for(:password).each do |message| %>
       <div><%= message %></div>
       <% end %>

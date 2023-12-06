@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_05_154712) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_17_110403) do
   create_table "answers", force: :cascade do |t|
     t.integer "enigme_id", null: false
     t.text "true"
@@ -29,6 +29,22 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_05_154712) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "characters", force: :cascade do |t|
+    t.string "name"
+    t.integer "player_id", null: false
+    t.string "avatar"
+    t.integer "xp"
+    t.integer "force"
+    t.integer "pv"
+    t.integer "po"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "level"
+    t.integer "quest_id"
+    t.index ["player_id"], name: "index_characters_on_player_id"
+    t.index ["quest_id"], name: "index_characters_on_quest_id"
+  end
+
   create_table "enigmes", force: :cascade do |t|
     t.text "titre"
     t.datetime "created_at", null: false
@@ -37,22 +53,22 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_05_154712) do
 
   create_table "hdvs", force: :cascade do |t|
     t.integer "item_id", null: false
-    t.integer "player_id", null: false
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "character_id", null: false
+    t.index ["character_id"], name: "index_hdvs_on_character_id"
     t.index ["item_id"], name: "index_hdvs_on_item_id"
-    t.index ["player_id"], name: "index_hdvs_on_player_id"
   end
 
   create_table "inventories", force: :cascade do |t|
-    t.integer "player_id", null: false
     t.integer "item_id", null: false
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "character_id", null: false
+    t.index ["character_id"], name: "index_inventories_on_character_id"
     t.index ["item_id"], name: "index_inventories_on_item_id"
-    t.index ["player_id"], name: "index_inventories_on_player_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -75,7 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_05_154712) do
 
   create_table "masters", force: :cascade do |t|
     t.string "username"
-    t.string "password"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -95,27 +111,24 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_05_154712) do
   end
 
   create_table "players", force: :cascade do |t|
-    t.integer "xp"
-    t.integer "pv"
-    t.integer "force"
     t.string "name"
-    t.string "avatar"
-    t.integer "po"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password"
+    t.string "password_digest"
   end
 
   create_table "quests", force: :cascade do |t|
     t.string "title"
     t.integer "xp"
     t.integer "item_id", null: false
-    t.bigint "player_id"
     t.integer "master_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "character_id"
+    t.index ["character_id"], name: "index_quests_on_character_id"
     t.index ["item_id"], name: "index_quests_on_item_id"
     t.index ["master_id"], name: "index_quests_on_master_id"
-    t.index ["player_id"], name: "index_quests_on_player_id"
   end
 
   create_table "steps", force: :cascade do |t|
@@ -127,26 +140,26 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_05_154712) do
     t.bigint "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "player"
-    t.bigint "monster"
-    t.bigint "enigme"
+    t.integer "character_id"
+    t.index ["character_id"], name: "index_steps_on_character_id"
     t.index ["enigme_id"], name: "index_steps_on_enigme_id"
     t.index ["monster_id"], name: "index_steps_on_monster_id"
-    t.index ["player_id"], name: "index_steps_on_player_id"
     t.index ["quest_id"], name: "index_steps_on_quest_id"
   end
 
   add_foreign_key "answers", "enigmes"
+  add_foreign_key "characters", "players"
+  add_foreign_key "characters", "quests"
+  add_foreign_key "hdvs", "characters"
   add_foreign_key "hdvs", "items"
-  add_foreign_key "hdvs", "players"
+  add_foreign_key "inventories", "characters"
   add_foreign_key "inventories", "items"
-  add_foreign_key "inventories", "players"
   add_foreign_key "monsters", "items"
+  add_foreign_key "quests", "characters"
   add_foreign_key "quests", "items"
   add_foreign_key "quests", "masters"
-  add_foreign_key "quests", "players"
+  add_foreign_key "steps", "characters"
   add_foreign_key "steps", "enigmes"
   add_foreign_key "steps", "monsters"
-  add_foreign_key "steps", "players"
   add_foreign_key "steps", "quests"
 end

@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
-
+      before_action :require_login
+      
       def new
         @answer = Answer.new
       end

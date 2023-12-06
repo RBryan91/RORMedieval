@@ -1,0 +1,14 @@
+<h1><%= @player.name %></h1>
+<%= link_to "Créer un personnage", new_character_path %>
+
+<h2>Characters:</h2>
+<ul>
+  <% @characters.each do |character| %>
+    <li>
+      <%= link_to character.name, character_path(character) %>
+    </li>
+  <% end %>
+</ul>
+
+<a href = "/logoutPlayer">Log out</a>
+
