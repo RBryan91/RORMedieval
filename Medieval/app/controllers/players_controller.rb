@@ -6,6 +6,7 @@ class PlayersController < ApplicationController
     end
     # Action pour afficher le profil d'un joueur
     def show
+      session[:character_id] = nil
       @player = Player.find(params[:id])
       @characters = @player.characters
     end

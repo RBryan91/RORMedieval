@@ -3,6 +3,7 @@ class CharactersController < ApplicationController
 
     def show
       @character = Character.find(params[:id])
+      @inventories = @character.inventorys.includes(:item)
     end
   
     def new
@@ -17,6 +18,7 @@ class CharactersController < ApplicationController
       @character.xp = 0
 
       if @character.save
+        session[:character_id] = @character.id
         redirect_to @character
       else
         render :new, status: :unprocessable_entity

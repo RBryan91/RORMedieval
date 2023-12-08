@@ -5,4 +5,21 @@
 <p> po : <%= @character.po %></p>
 <p> level : <%= @character.level %></p>
 
+<h2>Inventory:</h2>
+<% if @inventories.any? %>
+<%= form_tag(update_status_inventory_path, method: :put) do %>
+    <ul>
+      <% @inventories.each do |inventory| %>
+        <li>
+          <%= check_box_tag "inventory_ids[]", inventory.id, inventory.active %>
+          <%= inventory.item.name %>
+        </li>
+      <% end %>
+    </ul>
+    <%= submit_tag "Update Active Status" %>
+  <% end %>
+<% else %>
+  <p>Votre inventaire est vide.</p>
+<% end %>
+
 <%= link_to "Retour", player_path(session[:player_id]) %>

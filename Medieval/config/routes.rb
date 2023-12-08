@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   resources :items
   resources :steps
   resources :characters
-  resources :inventorys
+  resources :inventorys do
+    member do
+      put 'update_status'
+    end
+  end
 
 
   get ":players", to: "players#login"
