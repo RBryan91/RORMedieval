@@ -9,6 +9,14 @@
       <% end %>
   </div>
 
+    <div>
+    <%= form.label :message %><br>
+    <%= form.text_field :message %>
+    <% @monster.errors.full_messages_for(:message).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
   <div>
     <%= form.label :item_id %><br>
     <%= form.collection_select :item_id, Item.all, :id, :name, { include_blank: 'Sélectionnez un élément' } %>

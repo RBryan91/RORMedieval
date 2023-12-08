@@ -19,7 +19,7 @@ class MonstersController < ApplicationController
         
       private
         def monster_params 
-          params.require(:monster).permit(:name, :force, :pv, :item_id, :rate)
+          params.require(:monster).permit(:name, :force, :pv, :item_id, :rate, :message)
         end
 
 end
