@@ -16,6 +16,14 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/monsters", to: "monsters#new"
+  resources :monsters
+
+  get "/enigmes", to: "enigmes#new"
+  resources :enigmes
+
+  get "/answers", to: "answers#new"
+  resources :answers
 
   get ":players", to: "players#login"
   get "/logoutPlayer", to: "players#logout"

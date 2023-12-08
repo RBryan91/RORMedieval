@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_17_110403) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_05_154712) do
   create_table "answers", force: :cascade do |t|
     t.integer "enigme_id", null: false
-    t.boolean "true"
-    t.text "title"
+    t.text "true"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "reponse_1"
+    t.text "reponse_2"
+    t.text "reponse_3"
     t.index ["enigme_id"], name: "index_answers_on_enigme_id"
   end
 
@@ -98,7 +100,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_110403) do
     t.integer "force"
     t.integer "pv"
     t.string "avatar"
-    t.integer "item_id", null: false
+    t.bigint "item_id"
     t.integer "rate"
     t.string "name"
     t.boolean "active"
@@ -131,12 +133,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_17_110403) do
 
   create_table "steps", force: :cascade do |t|
     t.integer "quest_id", null: false
-    t.integer "monster_id", null: false
-    t.integer "enigme_id", null: false
+    t.bigint "monster_id"
+    t.bigint "enigme_id"
     t.integer "xp"
     t.string "titre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "player"
+    t.bigint "monster"
+    t.bigint "enigme"
     t.integer "character_id"
     t.index ["character_id"], name: "index_steps_on_character_id"
     t.index ["enigme_id"], name: "index_steps_on_enigme_id"
