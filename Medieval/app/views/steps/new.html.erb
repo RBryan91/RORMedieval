@@ -34,7 +34,7 @@
 
     <div>
     <%= form.label :enigme_id %><br>
-    <%= form.collection_select :enigme_id, Enigme.all, :id, :titre %>
+    <%= form.collection_select :enigme_id, Enigme.all, :id, :titre,  { include_blank: 'Sélectionnez un élément' } %>
     <% @step.errors.full_messages_for(:enigme_id).each do |message| %>
       <div><%= message %></div>
       <% end %>

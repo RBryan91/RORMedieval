@@ -9,7 +9,7 @@
     <ul>    
         <% quest.steps.each do |step| %>    
         <li>
-        <%= step.titre %>
+        <%= link_to step.titre, edit_step_path(step) %>
         </li>  
         <% end %> 
     </ul>
