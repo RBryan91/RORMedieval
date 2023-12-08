@@ -5,6 +5,6 @@ class Step < ApplicationRecord
   belongs_to :character, optional: true
 
   validates :titre, presence: true
-  validates :xp, presence: true
+  validates :xp, presence: true, numericality: { greater_than: 0 }
   validates :quest_id, presence: true
 end

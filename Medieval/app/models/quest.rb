@@ -7,7 +7,7 @@ class Quest < ApplicationRecord
   has_many :characters
 
   validates :title, presence: true
-  validates :xp, presence: true
+  validates :xp, presence: true, numericality: { greater_than: 0 }
   validates :item_id, presence: true
   validates :master_id, presence: true
 

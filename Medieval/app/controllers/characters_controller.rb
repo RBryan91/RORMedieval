@@ -3,7 +3,15 @@ class CharactersController < ApplicationController
 
     def show
       @character = Character.find(params[:id])
+      session[:character_id] = @character.id
       @inventories = @character.inventorys.includes(:item)
+    end
+
+    def delete_character
+      character = Character.find(params[:character_id])
+      character.destroy
+      flash[:notice] = "Character successfully deleted."
+      redirect_to player_path(session[:player_id])
     end
   
     def new

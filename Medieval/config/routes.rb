@@ -10,11 +10,14 @@ Rails.application.routes.draw do
   resources :items
   resources :steps
   resources :characters
-  resources :inventorys do
-    member do
-      put 'update_status'
-    end
-  end
+  resources :inventorys
+  resources :hdvs
+
+  get '/delete_character', to: 'characters#delete_character', as: :delete_character
+  get '/buy_item', to: 'hdvs#buy_item', as: :buy_item
+  get '/delete_item', to: 'hdvs#delete_item', as: :delete_item
+
+  patch '/move_items', to: 'inventorys#move_items', as: :move_items
 
   get "/monsters", to: "monsters#new"
   resources :monsters

@@ -3,7 +3,6 @@ class QuestsController < ApplicationController
 
     def new
         @quest = Quest.new
-        @quest.xp = 0
     end
 
     def create
