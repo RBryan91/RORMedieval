@@ -45,8 +45,37 @@
       <% end %>
       <%= submit_tag "Move to Inventory", name: "move_to_inventory" %>
     <% end %>
+  <% else %>
+    <p>Vous avez pas de stuff equipé.</p>
   <% end %>
 </div>
+
+<div class="quete-column">
+  <h2>Quetes disponibles</h2>
+  <% if @in_progress.size > 0 %>
+    <ul>
+      <% @valid_quetes.each do |quete| %> 
+        <li><a href="/start_quest?quest_id=<%= quete.id %>" ><%= quete.title %></a> - Level <%= quete.level %></li>
+      <% end %>
+    </ul>
+    <% else %>
+    <p>Vous avez pas de quete disponible.</p>
+  <% end %>
+</div>
+
+<div class="quete-en-cour-column">
+  <h2>Quetes en cours</h2>
+  <% if @in_progress.size > 0 %>
+    <ul>
+      <% @in_progress.each do |quete| %>
+        <li><%= quete.title %> - Level <%= quete.level %></li>
+      <% end %>
+    </ul>
+</div>
+  <% else %>
+    <p>Vous avez pas de quete en cours.</p>
+  <% end %>
+
 
 <%= link_to "HdV", hdvs_path %>
 <%= link_to "Retour", player_path(session[:player_id]) %>

@@ -5,6 +5,11 @@ class CharactersController < ApplicationController
       @character = Character.find(params[:id])
       session[:character_id] = @character.id
       @inventories = @character.inventorys.includes(:item)
+      min_level = @character.level - 2
+      max_level = @character.level + 2
+      @valid_quetes = Quest.where(level: min_level..max_level)
+      @in_progress = Quest.where(character_id: @character.id)
+
     end
 
     def delete_character

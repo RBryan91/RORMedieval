@@ -16,7 +16,7 @@ class QuestsController < ApplicationController
 
     private
         def quest_params 
-          params.require(:quest).permit(:title, :xp, :item_id, :master_id)
+          params.require(:quest).permit(:title, :xp, :item_id, :master_id, :level)
         end
 
 end

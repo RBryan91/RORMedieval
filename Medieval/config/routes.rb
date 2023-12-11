@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :inventorys
   resources :hdvs
 
+  get '/start_quest', to: 'steps#startQuest', as: :startQuest
   get '/delete_character', to: 'characters#delete_character', as: :delete_character
   get '/buy_item', to: 'hdvs#buy_item', as: :buy_item
   get '/delete_item', to: 'hdvs#delete_item', as: :delete_item

@@ -18,7 +18,7 @@
 
   <div>
     <%= form.label :xp %><br>
-    <%= form.number_field :xp %>
+    <%= form.number_field :xp, min:0 %>
     <% @step.errors.full_messages_for(:xp).each do |message| %>
       <div><%= message %></div>
       <% end %>
