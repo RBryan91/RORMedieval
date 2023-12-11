@@ -1,14 +1,23 @@
-<h1><%= @player.name %></h1>
-<%= link_to "Créer un personnage", new_character_path %>
+<div class="container show-players-container">
+  <div class="row justify-content-center">
+     <div class="col-7 show-players-content">
+        <h1>Bonjour <%= @player.name %></h1>
+        <div class="row justify-content-center">
+        
+        <h2 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Characters <i class="arrow down"></i></h2>
 
-<h2>Characters:</h2>
-<ul>
-  <% @characters.each do |character| %>
-    <li>
-      <%= link_to character.name, character_path(character) %>
-    </li>
-  <% end %>
-</ul>
-
-<a href = "/logoutPlayer">Log out</a>
+        <div class="dropdown-menu dropdown-characters" aria-labelledby="dropdownMenuButton">
+        <% @characters.each do |character| %>
+            <a class="dropdown-item">  <%= link_to character.name, character_path(character) %></a>
+    
+            <% end %>
+          </div>
+        
+          
+        </div>
+          <%= link_to "Créer un personnage", new_character_path ,class: 'text-center mt-3 btn button-connexion'%> <br>
+        <a href = "/logoutPlayer" class="btn btn-light mt-3">Log out</a>
+      </div>
+  </div>
+</div>
 

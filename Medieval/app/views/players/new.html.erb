@@ -1,23 +1,30 @@
-<h1>New Player</h1>
+<div class="container fomulaire-connexion-container">
+    <div class="row justify-content-center">
+      <div class="col-5 fomulaire-inscription">
+        <h1 class="text-center">New Player</h1>
 
-<%= form_with model: @player do |form| %>
-  <div>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
-    <% @player.errors.full_messages_for(:name).each do |message| %>
-      <div><%= message %></div>
-      <% end %>
-  </div>
+        <%= form_with model: @player do |form| %>
+          <div class="form-group">
+         
+            <%= form.text_field :name, class: 'form-control',placeholder: 'Nom d\'utilisateur' %>
+            <% @player.errors.full_messages_for(:name).each do |message| %>
+              <div class="text-danger"><%= message %></div>
+            <% end %>
+          </div>
 
-  <div>
-    <%= form.label :password %><br>
-    <%= form.password_field :password %>
-    <% @player.errors.full_messages_for(:password).each do |message| %>
-      <div><%= message %></div>
-      <% end %>
-  </div>
+          <div class="form-group">
+          
+            <%= form.password_field :password, class: 'form-control',placeholder: 'Mot de passe' %>
+            <% @player.errors.full_messages_for(:password).each do |message| %>
+              <div class="text-danger"><%= message %></div>
+            <% end %>
+          </div>
 
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+          <div class="form-group">
+            <%= form.submit "Create", class: 'btn btn-primary btn-block  button-connexion' %>
+          </div>
+        <% end %>
+        <a href="/players" class="text-center d-block mt-3btn button-link-inscrire">Login</a>
+        </div>
+    </div>
+</div>

@@ -13,3 +13,86 @@
  *= require_tree .
  *= require_self
  */
+
+.button-connexion{
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+    color: #fff !important;
+    border-radius: 5rem;
+}
+
+.fomulaire-connexion-container {
+    margin-top: 2rem ;
+    width: 100%;
+
+}
+.fomulaire-connexion{
+    border: 1px solid #acb3b1;
+    padding: 2rem;
+    border-radius: 1rem;
+    color: #fff;
+}
+
+.fomulaire-inscription{
+    border: 1px solid #acb3b1;
+    padding: 2rem;
+    border-radius: 1rem;
+    color: #fff;
+}
+.game-title{
+    font-weight: bold;
+    font-style: oblique;
+    padding-bottom: 2rem;
+}
+.body-main{
+
+    background-image: url('../assets/background-main.png');
+    background-size: cover;
+  }
+
+  .button-link-inscrire{
+    opacity: 0.7;
+    color: #fff;
+    transition: 0.5s;
+    
+  }
+  .button-link-inscrire:hover{
+    opacity: 1;
+    color: #fff;
+    text-decoration: none;
+  }
+
+
+
+  .show-players-container{
+    margin-top: 3rem;
+    text-align: center;
+  }
+
+  .show-players-content{
+    color: #fff;
+  }
+
+  .arrow {
+    border: solid rgb(255, 255, 255);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 4px;
+    position: relative;
+    top: -0.3rem;
+}
+
+.down {
+
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+
+.dropdown-characters{
+    text-align: center !important;
+}
+
+.dropdown-characters > a{
+    text-decoration: none;
+    font-size: 1rem;
+}

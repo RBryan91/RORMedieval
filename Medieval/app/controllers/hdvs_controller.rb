@@ -1,8 +1,4 @@
 class HdvsController < ApplicationController
-<<<<<<< HEAD
-    def index
-        render 'hdvs/index'
-=======
     before_action :require_login_player
 
     def index
@@ -67,6 +63,5 @@ class HdvsController < ApplicationController
     private
       def hdv_params 
         params.require(:hdv).permit(:item_id, :price, :character_id )
->>>>>>> 8247fd39a6958bdfcb65b4a855df3b2dd4c48511
       end
 end
