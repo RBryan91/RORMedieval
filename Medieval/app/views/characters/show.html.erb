@@ -1,0 +1,9 @@
+<h1> Nom : <%= @character.name %></h1>
+<p> xp : <%= @character.xp %></p>
+<p> force : <%= @character.force %></p>
+<p> pv : <%= @character.pv %></p>
+<p> po : <%= @character.po %></p>
+<p> level : <%= @character.level %></p>
+<a href = "/hdv">Hdv</a>
+
+<%= link_to "Retour", player_path(session[:player_id]) %>

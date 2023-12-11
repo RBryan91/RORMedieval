@@ -1,22 +1,23 @@
 Rails.application.routes.draw do
 
   get "/masters", to: "masters#login"
-  get "/logout", to: "masters#logout"
-  post 'authenticate', to: 'masters#authenticate'
+  get "/logoutMaster", to: "masters#logout"
+  get '/hdv', to: 'hdvs#index', as: 'hdv'
+  post 'authenticateMaster', to: 'masters#authenticate'
   resources :masters do
     get 'login', on: :collection
   end
   resources :quests 
   resources :items
   resources :steps
+  resources :characters
+  resources :inventorys
 
+
+  get ":players", to: "players#login"
+  get "/logoutPlayer", to: "players#logout"
+  post 'authenticatePlayer', to: 'players#authenticate'
   resources :players do
-    collection do
-      get 'connexion', to: 'players#connexion', as: 'connexion'
-      get 'inscription', to: 'players#new', as: 'inscription'
-      post 'authenticate', to: 'players#authenticate', as: 'authenticate'
-    end
+    get 'login', on: :collection
   end
-
-  resources :sessions, only: [:create, :destroy]
 end
