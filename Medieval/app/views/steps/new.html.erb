@@ -1,5 +1,9 @@
 <h1>New Step</h1>
 
+    <% @step.errors.full_messages_for(:base).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+
 <%= form_with model: @step do |form| %>
 
     <%= form.hidden_field :quest_id, value: params[:quest_id] %>
@@ -22,7 +26,7 @@
 
   <div>
     <%= form.label :monster_id %><br>
-    <%= form.collection_select :monster_id, Monster.all, :id, :name %>
+    <%= form.collection_select :monster_id, Monster.all, :id, :name, { include_blank: 'Sélectionnez un élément' } %>
     <% @step.errors.full_messages_for(:monster_id).each do |message| %>
       <div><%= message %></div>
       <% end %>
@@ -34,7 +38,7 @@
 
     <div>
     <%= form.label :enigme_id %><br>
-    <%= form.collection_select :enigme_id, Enigme.all, :id, :name %>
+    <%= form.collection_select :enigme_id, Enigme.all, :id, :titre,  { include_blank: 'Sélectionnez un élément' } %>
     <% @step.errors.full_messages_for(:enigme_id).each do |message| %>
       <div><%= message %></div>
       <% end %>
@@ -42,8 +46,15 @@
   <a href="/enigmes">
         <%= "créer une enigme " %>
     </a>
-
+    
   <div>
     <%= form.submit %>
+  </div>
+  <div>
+    <% if session[:check] %> 
+        <a href="/masters/<%= session[:master_id] %>">
+          <%= "Finir" %>
+        </a>
+    <% end %> 
   </div>
 <% end %>

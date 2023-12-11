@@ -1,0 +1,21 @@
+<h1>Step <%= @step.id %></h1>
+
+<div>
+  <strong>Titre:</strong> <%= @step.titre %>
+</div>
+
+<div>
+  <strong>Xp:</strong> <%= @step.xp %>
+</div>
+
+<div>
+  <strong>Monstre:</strong> <%= @step.monster.name %>
+</div>
+
+<div>
+  <strong>Enigme:</strong> <%= @step.enigme.titre %>
+</div>
+
+<a href="/masters/<%= session[:master_id] %>">
+          <%= "Retour" %>
+        </a>

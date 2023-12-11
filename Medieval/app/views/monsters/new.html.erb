@@ -1,0 +1,55 @@
+<h1>New Monster</h1>
+
+<%= form_with model: @monster do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+    <% @monster.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+    <div>
+    <%= form.label :message %><br>
+    <%= form.text_field :message %>
+    <% @monster.errors.full_messages_for(:message).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= form.label :item_id %><br>
+    <%= form.collection_select :item_id, Item.all, :id, :name, { include_blank: 'Sélectionnez un élément' } %>
+    <% @monster.errors.full_messages_for(:item_id).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= form.label :rate %><br>
+    <%= form.number_field :rate %>
+    <% @monster.errors.full_messages_for(:rate).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= form.label :force %><br>
+    <%= form.number_field :force %>
+    <% @monster.errors.full_messages_for(:force).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= form.label :pv %><br>
+    <%= form.number_field :pv %>
+    <% @monster.errors.full_messages_for(:pv).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,1 +1,25 @@
-<h1>Hello, HDV!</h1>
+<h1><%= "Hotel de Vente" %></h1>
+<%= link_to "Vendre un item", new_hdv_path %>
+
+<% flash.each do |key, message| %>
+  <div class="flash <%= key %>">
+    <%= message %>
+  </div>
+<% end %>
+
+<h2>Items :</h2>
+<ul>
+  <% @hdv.each do |hdv| %>
+    <li>
+      <%= link_to hdv.item.name, item_path(hdv.item_id) %>
+      <%= "#{hdv.price} po" %>
+      <% if hdv.character_id == session[:character_id] %>
+      <a href="/delete_item?hdv_id=<%= hdv.id %>">Retirer</a>
+      <% else %>
+      <a href="/buy_item?hdv_id=<%= hdv.id %>">Acheter</a>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Retour", character_path(session[:character_id]) %>

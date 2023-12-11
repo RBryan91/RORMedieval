@@ -1,0 +1,26 @@
+
+<h1>Modifier Step</h1>
+
+<%= form_for @step do |step| %>
+  <div>
+    <%= step.label :titre, "Titre" %>
+    <%= step.text_field :titre %>
+  </div>
+
+  <div>
+    <%= step.label :xp, "xp" %>
+    <%= step.number_field :xp %>
+  </div>
+   <div>
+    <%= step.label :monster_id, "Monster" %>
+    <%= step.collection_select(:monster_id, Monster.all, :id, :name, prompt: "Sélectionnez un monstre") %>
+  </div>
+  <div>
+    <%= step.label :enigme_id, "Enigme" %>
+    <%= step.collection_select(:enigme_id, Enigme.all, :id, :titre) %>
+  </div>
+
+  <div>
+    <%= step.submit "Enregistrer les modifications" %>
+  </div>
+<% end %>

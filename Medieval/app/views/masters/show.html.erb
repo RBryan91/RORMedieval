@@ -1,5 +1,21 @@
 
 <%= link_to "Créer une quête", new_quest_path %>
 <h1><%= @master.username %></h1>
+ 
+<h2>All Quests and Steps:</h2>
+<% if @quest.any? %>
+ <% @quest.each do |quest| %> 
+    <%= link_to quest.title, new_step_path(quest_id: quest.id) %>
+    <ul>    
+        <% quest.steps.each do |step| %>    
+        <li>
+        <%= link_to step.titre, edit_step_path(step) %>
+        </li>  
+        <% end %> 
+    </ul>
+    <% end %>
+<% else %>
+    <p>Vous avez pas de quete</p>
+<% end %>
 <a href = "/logoutMaster">Log out</a>
 
