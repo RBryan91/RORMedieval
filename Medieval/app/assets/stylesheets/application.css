@@ -170,3 +170,13 @@
   text-align: center;
   margin-top: 2rem;
  }
+
+
+ .dropdown-show-master{
+  width: 50%;
+ }
+
+ .dropdown-show-master > a{
+  color:black;
+  font-size: 1rem;
+ }
