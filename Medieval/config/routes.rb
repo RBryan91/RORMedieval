@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
 
+  root "application#index"
+
   get "/masters", to: "masters#login"
   get "/logoutMaster", to: "masters#logout"
+  get '/hdv', to: 'hdvs#index', as: 'hdv'
   post 'authenticateMaster', to: 'masters#authenticate'
-  resources :masters do
-    get 'login', on: :collection
-  end
+  resources :masters
+  
   resources :quests 
   resources :items
   resources :steps
@@ -29,10 +31,8 @@ Rails.application.routes.draw do
   get "/answers", to: "answers#new"
   resources :answers
 
-  get ":players", to: "players#login"
+  get "/players", to: "players#connect"
   get "/logoutPlayer", to: "players#logout"
   post 'authenticatePlayer', to: 'players#authenticate'
-  resources :players do
-    get 'login', on: :collection
-  end
+  resources :players
 end
