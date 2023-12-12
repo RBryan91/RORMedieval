@@ -31,8 +31,10 @@ class StepsController < ApplicationController
           redirect_to new_step_path(quest_id: @step.quest_id)
         else
           render :new, status: :unprocessable_entity
-        end
       end
+    end
+
+    
 
     private
       def step_params 

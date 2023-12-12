@@ -2,6 +2,9 @@ class ApplicationController < ActionController::Base
     protect_from_forgery with: :exception
     helper_method :current_player, :logged_in_player?
     helper_method :current_master, :logged_in?
+
+    def index
+    end
  
     private
  

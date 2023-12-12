@@ -1,7 +1,7 @@
 class PlayersController < ApplicationController
-    before_action :require_login_player, except: [:new, :create, :login, :authenticate]
+    before_action :require_login, except: [:login, :authenticate, :new, :create]
 
-    def login
+    def connect
       render 'login'
     end
     # Action pour afficher le profil d'un joueur
@@ -34,7 +34,7 @@ class PlayersController < ApplicationController
 
     def logout
       session[:player_id] = nil
-      redirect_to login_players_path
+      redirect_to root_path
     end
 
     # Action pour traiter la soumission du formulaire de connexion
@@ -43,7 +43,7 @@ class PlayersController < ApplicationController
   
       if @player && @player.authenticate(params[:player]&.fetch(:password))
         session[:player_id] = @player.id
-        redirect_to player_path(@player), notice: "Connexion réussie !"
+        redirect_to player_path(@player)
       else
         flash.now[:alert] = "Nom d'utilisateur ou mot de passe incorrect."
         redirect_to login_players_path
