@@ -1,5 +1,5 @@
 class PlayersController < ApplicationController
-    before_action :require_login, except: [:login, :authenticate, :new, :create]
+    before_action :require_login_player, except: [:connect, :authenticate, :new, :create]
 
     def connect
       render 'login'
