@@ -3,15 +3,17 @@ class AnswersController < ApplicationController
       
       def new
         @answer = Answer.new
+        @enigme_id = params[:enigme_id]
       end
   
       def create
           @answer = Answer.new(answer_params)
           
         if @answer.save
-          redirect_to new_step_path
+          redirect_to new_step_path(quest_id:session[:quest_id])
           else
-            render :new, status: :unprocessable_entity
+            puts "Answer #{@answer.enigme_id}"
+            redirect_to new_answer_path(enigme_id:@answer.enigme_id)
           end
       end
         

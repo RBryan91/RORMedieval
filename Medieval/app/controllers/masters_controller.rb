@@ -28,6 +28,7 @@ class MastersController < ApplicationController
       @quest = @master.quests
       @step = Step.where(quest_id: @quest.pluck(:id))
       session.delete(:check)
+      session.delete(:quest_id)
       
     end
 

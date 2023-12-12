@@ -11,7 +11,7 @@ class MonstersController < ApplicationController
           @monster = Monster.new(monster_params)
           
         if @monster.save
-            redirect_to new_step_path
+            redirect_to new_step_path(quest_id:session[:quest_id])
           else
             render :new, status: :unprocessable_entity
           end

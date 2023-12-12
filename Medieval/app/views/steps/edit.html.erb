@@ -13,11 +13,11 @@
   </div>
    <div>
     <%= step.label :monster_id, "Monster" %>
-    <%= step.collection_select(:monster_id, Monster.all, :id, :name, prompt: "Sélectionnez un monstre") %>
+    <%= step.collection_select(:monster_id, Monster.all, :id, :name, { include_blank: 'Sélectionnez un élément' }) %>
   </div>
   <div>
     <%= step.label :enigme_id, "Enigme" %>
-    <%= step.collection_select(:enigme_id, Enigme.all, :id, :titre) %>
+    <%= step.collection_select(:enigme_id, Enigme.all, :id, :titre, { include_blank: 'Sélectionnez un élément' }) %>
   </div>
 
   <div>
