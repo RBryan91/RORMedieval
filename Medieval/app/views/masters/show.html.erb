@@ -6,6 +6,8 @@
 <% if @quest.any? %>
  <% @quest.each do |quest| %> 
     <%= link_to quest.title, new_step_path(quest_id: quest.id) %>
+    <a href="/delete_quest?quest_id=<%= quest.id %>">Supprimer</a>
+    
     <ul>    
         <% quest.steps.each do |step| %>    
         <li>
