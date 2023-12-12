@@ -31,10 +31,12 @@
       <div><%= message %></div>
       <% end %>
   </div>
-
-  <a href="/monsters">
-        <%= "créer un monstre" %>
-      </a>
+  
+  <% if session[:quest_id] %>
+    <a href="/monsters/?quest_id=<%= params[:quest_id] %>">
+      <%= "créer un monstre" %>
+    </a>
+  <% end %>
 
     <div>
     <%= form.label :enigme_id %><br>
@@ -43,9 +45,12 @@
       <div><%= message %></div>
       <% end %>
   </div>
-  <a href="/enigmes">
-        <%= "créer une enigme " %>
+
+  <% if session[:quest_id] %>
+    <a href="/enigmes">
+      <%= "créer une enigme " %>
     </a>
+  <% end %>
     
   <div>
     <%= form.submit %>
