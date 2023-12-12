@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
  
     def require_login_player
       unless logged_in_player?
-        redirect_to login_players_path, alert: 'You must be logged in to access this page.'
+        redirect_to connect_players_path, alert: 'You must be logged in to access this page.'
       end
     end
   
