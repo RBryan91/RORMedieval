@@ -1,21 +1,28 @@
-
-<%= link_to "Créer une quête", new_quest_path %>
-<h1><%= @master.username %></h1>
- 
-<h2>All Quests and Steps:</h2>
-<% if @quest.any? %>
- <% @quest.each do |quest| %> 
-    <%= link_to quest.title, new_step_path(quest_id: quest.id) %>
-    <ul>    
-        <% quest.steps.each do |step| %>    
-        <li>
-        <%= link_to step.titre, edit_step_path(step) %>
-        </li>  
-        <% end %> 
-    </ul>
-    <% end %>
-<% else %>
-    <p>Vous avez pas de quete</p>
-<% end %>
-<a href = "/logoutMaster">Log out</a>
-
+<div class="container show-players-container">
+    <div class="row justify-content-center">
+        <div class="col-7 show-players-content">
+            <h1>Bonjour <%= @master.username %></h1>
+                <%= link_to "Créer une quête", new_quest_path, class: 'text-center mt-3 btn button-connexion' %>
+                <div class="row justify-content-center">
+                <h2 class="mt-4" dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Quests and Steps <i class="arrow down"></i></h2>
+                <% if @quest.any? %>
+                <div class="dropdown-menu dropdown-characters dropdown-show-master" aria-labelledby="dropdownMenuButton">
+                <% @quest.each do |quest| %> 
+                    <%= link_to quest.title, new_step_path(quest_id: quest.id)  %>
+                 
+                    <% quest.steps.each do |step| %>    
+                        <a class="dropdown-item"> <%= link_to step.titre, edit_step_path(step) %></a>
+           
+                   
+                        <% end %> 
+                
+                    <% end %>
+                    </div>
+                </div>
+                <% else %>
+                    <p>Vous avez pas de quete</p>
+                <% end %>
+                <a href = "/logoutMaster" class="btn btn-light mt-5">Log out</a>
+        </div>
+    </div>
+</div>
