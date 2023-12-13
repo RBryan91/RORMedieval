@@ -1,26 +1,40 @@
-<h1><%= "Vendre un item" %></h1>
+<div class="container fomulaire-connexion-container">
+  <div class="row justify-content-center">
+    <div class="col-5 fomulaire-inscription">
 
-<%= form_with model: @hdv do |form| %>
+        <h1><%= "Vendre un item" %></h1>
 
-    <div>
-    <%= form.label :item_id %><br>
-    <%= form.collection_select :item_id, Inventory.joins(:item).where(character_id: session[:character_id], active: false), :item_id, ->(inventory) { inventory.item.name }, { include_blank: 'Sélectionnez un élément' } %>
-    <% @hdv.errors.full_messages_for(:item_id).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
+        <%= form_with model: @hdv do |form| %>
 
-  <div>
-  <%= form.label :price %><br>
-  <%= form.number_field :price, min: 0 %>
-  <% @hdv.errors.full_messages_for(:price).each do |message| %>
-    <div><%= message %></div>
-    <% end %>
+            <div>
+            <%= form.label :item_id %><br>
+            <%= form.collection_select :item_id, Inventory.joins(:item).where(character_id: session[:character_id], active: false), :item_id, ->(inventory) { inventory.item.name }, { include_blank: 'Sélectionnez un élément' } %>
+            <% @hdv.errors.full_messages_for(:item_id).each do |message| %>
+              <div><%= message %></div>
+            <% end %>
+          </div>
+
+          <div>
+          <%= form.label :price %><br>
+          <%= form.number_field :price, min: 0 %>
+          <% @hdv.errors.full_messages_for(:price).each do |message| %>
+            <div><%= message %></div>
+            <% end %>
+        </div>
+
+        <%= form.hidden_field :character_id, value: session[:character_id] %>
+            
+          <div>
+            <%= form.submit class: 'btn btn-primary button-connexion mt-3' %>
+          </div>
+        <% end %>
+
+                
+        
+        
+        </div>
+    </div>
 </div>
 
-<%= form.hidden_field :character_id, value: session[:character_id] %>
-    
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+
+        
