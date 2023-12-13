@@ -39,58 +39,40 @@
           <% end %>
         </div>
 
-        <div class="stuff-column">
-          <h2>Stuff</h2>
-          <% if active_items.present? %>
-            <%= form_tag(move_items_path, method: :patch) do %>
-              <% active_items.each do |item| %>
-                <label>
-                  <%= check_box_tag "item_ids[]", item.id %>
-                  <%= item.item.name %>
-                </label>
-                <br>
-              <% end %>
-              <%= submit_tag "Move to Inventory", name: "move_to_inventory" %>
-            <% end %>
-          <% else %>
-            <p>Vous avez pas de stuff equipé.</p>
-          <% end %>
-        </div>
-
-        <div class="quete-column">
-          <h2>Quetes disponibles</h2>
-          <% if @in_progress.size > 0 %>
-            <ul>
-              <% @valid_quetes.each do |quete| %> 
-                <li><a href="/start_quest?quest_id=<%= quete.id %>" ><%= quete.title %></a> - Level <%= quete.level %></li>
-              <% end %>
-            </ul>
-            <% else %>
-            <p>Vous avez pas de quete disponible.</p>
-          <% end %>
-        </div>
-
-        <div class="quete-en-cour-column">
-          <h2>Quetes en cours</h2>
-          <% if @in_progress.size > 0 %>
-            <ul>
-              <% @in_progress.each do |quete| %>
-                <li><%= quete.title %> - Level <%= quete.level %></li>
-              <% end %>
-            </ul>
-        </div>
-          <% else %>
-            <p>Vous avez pas de quete en cours.</p>
-          <% end %>
-
-
-        <%= link_to "HdV",  hdvs_path, class: 'btn btn-primary button-connexion mt-3' %>
-        <%= link_to "Retour", player_path(session[:player_id]), class: 'btn btn-light mt-3' %>
-        <a class="btn btn-danger mt-3" href="/delete_character?character_id=<%= @character.id %>">Supprimer</a>
-
-        </div>
-    </div>
+<div class="quete-column">
+  <h2>Quetes disponibles</h2>
+  <% quests_to_display = @valid_quetes.reject { |quest| @in_progress.include?(quest) } %>
+  <% if quests_to_display.size > 0 %>
+    <ul>
+      <% quests_to_display.each do |quete| %> 
+        <li><a href="/start_quest?quest_id=<%= quete.id %>" ><%= quete.title %></a> - Level <%= quete.level %></li>
+      <% end %>
+    </ul>
+    <% else %>
+    <p>Vous avez pas de quete disponible.</p>
+  <% end %>
 </div>
 
+<div class="quete-en-cour-column">
+  <h2>Quetes en cours</h2>
+  <% if @in_progress.size > 0 %>
+    <ul>
+      <% @in_progress.each do |quete| %>
+        <li><%= quete.title %> - Level <%= quete.level %></li>
+        <% if @in_progressStep.size > 0 %>
+          <ul>
+            <% @in_progressStep.each do |step| %>
+             <% if step.quest_id == quete.id %>
+              <li><a href="/start_quest?quest_id=<%= quete.id %>?step_id=<%= step.id %>" ><%= step.titre %></a></li>
+            <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Vous n'avez pas de quête en cours.</p>
+  <% end %>
+</div>
 
 

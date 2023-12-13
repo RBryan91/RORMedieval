@@ -9,7 +9,9 @@ class CharactersController < ApplicationController
       max_level = @character.level + 2
       @valid_quetes = Quest.where(level: min_level..max_level)
       @in_progress = Quest.where(character_id: @character.id)
-
+      @in_progress_quest_ids = @in_progress.pluck(:id)
+      @in_progress_steps = Step.where(quest_id: @in_progress_quest_ids)
+      @in_progressStep = @in_progress_steps.where(character_id: @character.id)
     end
 
     def delete_character

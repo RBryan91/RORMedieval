@@ -25,6 +25,10 @@ class ApplicationController < ActionController::Base
     def current_master
       @current_master ||= Master.find(session[:master_id]) if session[:master_id]
     end
+
+    def current_character
+      @current_character ||= Character.find(session[:character_id]) if session[:character_id]
+    end
   
     def logged_in?
       !!current_master

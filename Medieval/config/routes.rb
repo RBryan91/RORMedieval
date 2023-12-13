@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   get '/hdv', to: 'hdvs#index', as: 'hdv'
   post 'authenticateMaster', to: 'masters#authenticate'
   resources :masters
-  
+  get '/delete_quest', to: 'quests#delete_quest', as: :delete_quest
+
   resources :quests 
   resources :items
   resources :steps

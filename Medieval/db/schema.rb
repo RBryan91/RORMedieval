@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_11_135039) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_13_104139) do
   create_table "answers", force: :cascade do |t|
     t.integer "enigme_id", null: false
     t.text "true"
@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_11_135039) do
     t.datetime "updated_at", null: false
     t.integer "level"
     t.integer "quest_id"
+    t.integer "step_id"
     t.index ["player_id"], name: "index_characters_on_player_id"
     t.index ["quest_id"], name: "index_characters_on_quest_id"
   end

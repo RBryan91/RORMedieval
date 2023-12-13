@@ -1,10 +1,15 @@
 class EnigmesController < ApplicationController
-    before_action :require_login
+    before_action :require_login, except: [:show]
 
     def new
         @enigme = Enigme.new
-      end
-  
+    end
+
+    def show
+      @enigme = Enigme.find(params[:id])
+      @answers = Answer.find_by(enigme_id:@enigme.id)
+    end
+   
       def create
           @enigme = Enigme.new(enigme_params)
           
