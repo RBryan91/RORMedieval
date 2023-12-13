@@ -1,8 +1,12 @@
 class Character < ApplicationRecord
   belongs_to :player
   belongs_to :quest, optional: true
+
   has_many :inventorys
   has_many :hdvs
+  has_many :quests
+  has_many :steps
+  
   validates :name, presence: true
   validates :force, presence: true
   validates :pv, presence: true

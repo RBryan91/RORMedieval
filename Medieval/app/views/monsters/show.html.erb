@@ -1,0 +1,15 @@
+<h1>Votre quete <%=params[:quest]%> vous mène a cette étape : <%=params[:step]%> </h1>
+
+<h2> Un <%= @monster.name %> vous attaque ! </h2>
+
+<p> Le <%= @monster.name %> dit <%= @monster.message %> ! </p>
+
+<p> pv : <%= @monster.pv %></p>
+
+
+<% if @monster.item %>
+  <p> item : <%= @monster.item.name %></p>
+  <p> rate : <%= @monster.rate %></p>
+<% end %>
+
+<%= link_to "Abandonner la quete", character_path(session[:character_id]) %>

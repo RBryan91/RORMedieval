@@ -1,10 +1,14 @@
 class MonstersController < ApplicationController
-      before_action :require_login
+      before_action :require_login, except: [:show]
       
       def new
         @monster = Monster.new
         @monster.pv = 0
         @monster.force = 0
+      end
+
+      def show
+        @monster = Monster.find(params[:id])
       end
   
       def create

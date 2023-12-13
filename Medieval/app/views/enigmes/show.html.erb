@@ -1,0 +1,13 @@
+<h1>Votre quete <%=params[:quest]%> vous mène a cette étape : <%=params[:step]%> </h1>
+
+<h2> Vous devez répondre à une énigme ! </h2>
+
+<h3> <%= @enigme.titre %>  </h3>
+
+<p> réponse 1 : <%= @answers.reponse_1 %></p>
+<p> réponse 2 : <%= @answers.reponse_2 %></p>
+<p> réponse 3 : <%= @answers.reponse_3 %></p>
+
+<p> réponse vrai : <%= @answers.true %></p>
+
+<%= link_to "Abandonner la quete", character_path(session[:character_id]) %>

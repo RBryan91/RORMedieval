@@ -53,9 +53,10 @@
 
 <div class="quete-column">
   <h2>Quetes disponibles</h2>
-  <% if @in_progress.size > 0 %>
+  <% quests_to_display = @valid_quetes.reject { |quest| @in_progress.include?(quest) } %>
+  <% if quests_to_display.size > 0 %>
     <ul>
-      <% @valid_quetes.each do |quete| %> 
+      <% quests_to_display.each do |quete| %> 
         <li><a href="/start_quest?quest_id=<%= quete.id %>" ><%= quete.title %></a> - Level <%= quete.level %></li>
       <% end %>
     </ul>
@@ -70,13 +71,21 @@
     <ul>
       <% @in_progress.each do |quete| %>
         <li><%= quete.title %> - Level <%= quete.level %></li>
+        <% if @in_progressStep.size > 0 %>
+          <ul>
+            <% @in_progressStep.each do |step| %>
+             <% if step.quest_id == quete.id %>
+              <li><a href="/start_quest?quest_id=<%= quete.id %>?step_id=<%= step.id %>" ><%= step.titre %></a></li>
+            <% end %>
+            <% end %>
+          </ul>
+        <% end %>
       <% end %>
     </ul>
-</div>
   <% else %>
-    <p>Vous avez pas de quete en cours.</p>
+    <p>Vous n'avez pas de quête en cours.</p>
   <% end %>
-
+</div>
 
 <%= link_to "HdV", hdvs_path %>
 <%= link_to "Retour", player_path(session[:player_id]) %>

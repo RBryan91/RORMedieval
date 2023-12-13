@@ -3,14 +3,15 @@
         <div class="col-7 show-players-content">
             <h1>Bonjour <%= @master.username %></h1>
                 <%= link_to "Créer une quête", new_quest_path, class: 'text-center mt-3 btn button-connexion' %>
-                <a href="/delete_quest?quest_id=<%= quest.id %>">Supprimer</a>
                 <div class="row justify-content-center">
-                <h2 class="mt-4" dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Quests and Steps <i class="arrow down"></i></h2>
+                <h2 class="mt-4 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Quests and Steps <i class="arrow down"></i></h2>
                 <% if @quest.any? %>
                 <div class="dropdown-menu dropdown-characters dropdown-show-master" aria-labelledby="dropdownMenuButton">
-                <% @quest.each do |quest| %> 
+                <% @quest.each do |quest| %>
+                    <div> 
                     <%= link_to quest.title, new_step_path(quest_id: quest.id)  %>
-                 
+                    <a href="/delete_quest?quest_id=<%= quest.id %>">Supprimer</a>
+                    </div>
                     <% quest.steps.each do |step| %>    
                         <a class="dropdown-item"> <%= link_to step.titre, edit_step_path(step) %></a>
            
