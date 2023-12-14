@@ -5,15 +5,15 @@
 
       <%= form_with model: @quest do |form| %>
         <div>
-          <%= form.label :title %><br>
+         <b> <%= form.label :title %></b><br>
           <%= form.text_field :title %>
           <% @quest.errors.full_messages_for(:title).each do |message| %>
             <div><%= message %></div>
             <% end %>
         </div>
 
-        <div>
-          <%= form.label :item_id %><br>
+        <div class="mt-3">
+        <b><%= form.label :item_id %></b><br>
           <%= form.collection_select :item_id, Item.all, :id, :name %>
           <% @quest.errors.full_messages_for(:item_id).each do |message| %>
             <div><%= message %></div>
@@ -22,8 +22,8 @@
         <%= link_to "Créer un item", new_item_path, class: 'text-center mt-3 btn button-connexion' %>
 
 
-        <div>
-          <%= form.label :xp %><br>
+        <div class='mt-3'>
+          <b><%= form.label :xp %></b><br>
           <%= form.number_field :xp, min:0 %>
           <% @quest.errors.full_messages_for(:xp).each do |message| %>
             <div><%= message %></div>
@@ -31,7 +31,7 @@
         </div>
 
         <div>
-          <%= form.label :level %><br>
+          <b><%= form.label :level %></b><br>
           <%= form.number_field :level, min:0 %>
           <% @quest.errors.full_messages_for(:level).each do |message| %>
             <div><%= message %></div>
@@ -41,7 +41,7 @@
         <%= form.hidden_field :master_id, value: session[:master_id] %>
 
         <div>
-          <%= form.submit %>
+          <%= form.submit class: 'btn btn-primary button-connexion mt-3' %>
         </div>
       <% end %>
 

@@ -1,15 +1,25 @@
-<h1>New Enigme</h1>
+<div class="container fomulaire-connexion-container">
+  <div class="row justify-content-center">
+    <div class="col-5 fomulaire-inscription">
 
-<%= form_with model: @enigme do |form| %>
-  <div>
-    <%= form.label :titre %><br>
-    <%= form.text_field :titre %>
-    <% @enigme.errors.full_messages_for(:titre).each do |message| %>
-      <div><%= message %></div>
-      <% end %>
-  </div>
+        <h1>New Enigme</h1>
 
-  <div>
-    <%= form.submit 'Choice the question' %>
+        <%= form_with model: @enigme do |form| %>
+          <div>
+            <%= form.label :titre %><br>
+            <%= form.text_field :titre %>
+            <% @enigme.errors.full_messages_for(:titre).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+          </div>
+
+          <div>
+            <%= form.submit 'Choice the question',  class: 'btn btn-primary button-connexion mt-3'%>
+          </div>
+        <% end %>
+
+
+    </div>
   </div>
-<% end %>
+</div>
+

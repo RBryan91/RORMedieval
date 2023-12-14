@@ -1,25 +1,34 @@
-<h1><%= "Hotel de Vente" %></h1>
-<%= link_to "Vendre un item", new_hdv_path %>
+<div class="container show-players-container">
+    <div class="row justify-content-center">
+        <div class="col-5 show-players-content">
+            <h1><%= "Hotel de Vente" %></h1>
+            <%= link_to "Vendre un item", new_hdv_path , class: 'btn btn-primary button-connexion mt-3'%>
 
-<% flash.each do |key, message| %>
-  <div class="flash <%= key %>">
-    <%= message %>
-  </div>
-<% end %>
+            <% flash.each do |key, message| %>
+              <div class="flash <%= key %>">
+                <%= message %>
+              </div>
+            <% end %>
 
-<h2>Items :</h2>
-<ul>
-  <% @hdv.each do |hdv| %>
-    <li>
-      <%= link_to hdv.item.name, item_path(hdv.item_id) %>
-      <%= "#{hdv.price} po" %>
-      <% if hdv.character_id == session[:character_id] %>
-      <a href="/delete_item?hdv_id=<%= hdv.id %>">Retirer</a>
-      <% else %>
-      <a href="/buy_item?hdv_id=<%= hdv.id %>">Acheter</a>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+            <h2 class="mt-2">Items :</h2>
+            <ul>
+              <% @hdv.each do |hdv| %>
+                <li>
+                  <%= link_to hdv.item.name, item_path(hdv.item_id) %>
+                  <%= "#{hdv.price} po" %>
+                  <% if hdv.character_id == session[:character_id] %>
+                  <a href="/delete_item?hdv_id=<%= hdv.id %>">Retirer</a>
+                  <% else %>
+                  <a href="/buy_item?hdv_id=<%= hdv.id %>">Acheter</a>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
 
-<%= link_to "Retour", character_path(session[:character_id]) %>
+            <%= link_to "Retour", character_path(session[:character_id]) ,class: 'btn btn-light mt-3'%>
+
+        </div>
+    </div>
+</div>
+
+

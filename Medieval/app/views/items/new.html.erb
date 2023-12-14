@@ -1,47 +1,53 @@
-<h1>New Item</h1>
+<div class="container fomulaire-connexion-container">
+  <div class="row justify-content-center">
+    <div class="col-5 fomulaire-inscription">
+      <h1>New Item</h1>
+        <%= form_with model: @item do |form| %>
+          <div>
+            <b><%= form.label :name %></b><br>
+            <%= form.text_field :name %>
+            <% @item.errors.full_messages_for(:name).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+          </div>
 
-<%= form_with model: @item do |form| %>
-  <div>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
-    <% @item.errors.full_messages_for(:name).each do |message| %>
-      <div><%= message %></div>
-      <% end %>
-  </div>
+          <div>
+            <b><%= form.label :category %></b><br>
+            <%= form.collection_select :category, ["Arme", "Bouclier", "Casque"], :to_s, :humanize %>
+            <% @item.errors.full_messages_for(:category).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+          </div>
 
-  <div>
-    <%= form.label :category %><br>
-    <%= form.collection_select :category, ["Arme", "Bouclier", "Casque"], :to_s, :humanize %>
-    <% @item.errors.full_messages_for(:category).each do |message| %>
-      <div><%= message %></div>
-      <% end %>
-  </div>
+          <div>
+            <b><%= form.label :xp %></b><br>
+            <%= form.number_field :xp %>
+            <% @item.errors.full_messages_for(:xp).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+          </div>
 
-  <div>
-    <%= form.label :xp %><br>
-    <%= form.number_field :xp %>
-    <% @item.errors.full_messages_for(:xp).each do |message| %>
-      <div><%= message %></div>
-      <% end %>
-  </div>
+          <div>
+            <b><%= form.label :force %></b><br>
+            <%= form.number_field :force %>
+            <% @item.errors.full_messages_for(:force).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+          </div>
 
-  <div>
-    <%= form.label :force %><br>
-    <%= form.number_field :force %>
-    <% @item.errors.full_messages_for(:force).each do |message| %>
-      <div><%= message %></div>
-      <% end %>
-  </div>
+          <div>
+            <b><%= form.label :pv %></b><br>
+            <%= form.number_field :pv %>
+            <% @item.errors.full_messages_for(:pv).each do |message| %>
+              <div><%= message %></div>
+              <% end %>
+          </div>
 
-  <div>
-    <%= form.label :pv %><br>
-    <%= form.number_field :pv %>
-    <% @item.errors.full_messages_for(:pv).each do |message| %>
-      <div><%= message %></div>
-      <% end %>
-  </div>
+          <div>
+            <%= form.submit class: 'btn btn-primary button-connexion mt-3'%>
+          </div>
+        <% end %>
 
-  <div>
-    <%= form.submit %>
+     </div>
   </div>
-<% end %>
+</div>
