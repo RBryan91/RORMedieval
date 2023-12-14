@@ -1,6 +1,13 @@
-<h1><%= @item.name %></h1>
-<p> xp : <%= @item.xp %></p>
-<p> force : <%= @item.force %></p>
-<p> pv : <%= @item.pv %></p>
+<div class="container show-players-container">
+    <div class="row justify-content-center">
+        <div class="col-7 show-players-content">
+             <h1><%= @item.name %></h1>
+            <p> xp : <%= @item.xp %></p>
+            <p> force : <%= @item.force %></p>
+            <p> pv : <%= @item.pv %></p>
 
-<%= link_to "Retour", hdvs_path %>
+            <%= link_to "Retour", hdvs_path %>
+
+        </div>
+    </div>
+</div>

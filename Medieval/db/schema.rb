@@ -141,10 +141,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_13_104139) do
     t.string "titre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "player"
-    t.bigint "monster"
-    t.bigint "enigme"
     t.integer "character_id"
+    t.bigint "player_id"
     t.index ["character_id"], name: "index_steps_on_character_id"
     t.index ["enigme_id"], name: "index_steps_on_enigme_id"
     t.index ["monster_id"], name: "index_steps_on_monster_id"

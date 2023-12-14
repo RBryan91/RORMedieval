@@ -1,65 +1,73 @@
-<h1>New Step</h1>
+<div class="container fomulaire-connexion-container">
+  <div class="row justify-content-center">
+    <div class="col-5 fomulaire-inscription">
 
-    <% @step.errors.full_messages_for(:base).each do |message| %>
-      <div><%= message %></div>
+        <h1>New Step</h1>
+
+          <% @step.errors.full_messages_for(:base).each do |message| %>
+            <div><%= message %></div>
+            <% end %>
+
+      <%= form_with model: @step do |form| %>
+
+          <%= form.hidden_field :quest_id, value: params[:quest_id] %>
+
+        <div>
+          <%= form.label :titre %><br>
+          <%= form.text_field :titre %>
+          <% @step.errors.full_messages_for(:titre).each do |message| %>
+            <div><%= message %></div>
+            <% end %>
+        </div>
+
+        <div>
+          <%= form.label :xp %><br>
+          <%= form.number_field :xp, min:0 %>
+          <% @step.errors.full_messages_for(:xp).each do |message| %>
+            <div><%= message %></div>
+            <% end %>
+        </div>
+
+        <div>
+          <%= form.label :monster_id %><br>
+          <%= form.collection_select :monster_id, Monster.all, :id, :name, { include_blank: 'Sélectionnez un élément' } %>
+          <% @step.errors.full_messages_for(:monster_id).each do |message| %>
+            <div><%= message %></div>
+            <% end %>
+        </div>
+        
+        <% if session[:quest_id] %>
+          <a class="btn btn-primary button-connexion mt-3"  href="/monsters/?quest_id=<%= params[:quest_id] %>">
+            <%= "créer un monstre" %>
+          </a>
+        <% end %>
+
+          <div>
+          <b><%= form.label :enigme_id %></b><br>
+          <%= form.collection_select :enigme_id, Enigme.all, :id, :titre,  { include_blank: 'Sélectionnez un élément' } %>
+          <% @step.errors.full_messages_for(:enigme_id).each do |message| %>
+            <div><%= message %></div>
+            <% end %>
+        </div>
+
+        <% if session[:quest_id] %>
+          <a class="btn btn-primary button-connexion mt-3" href="/enigmes">
+            <%= "créer une enigme " %>
+          </a>
+        <% end %>
+          
+        <div>
+          <%= form.submit class: 'btn btn-primary button-connexion mt-3' %>
+        </div>
+        <div>
+          <% if session[:check] %> 
+              <a class="btn btn-light  mt-3" href="/masters/<%= session[:master_id] %>">
+                <%= "Finir" %>
+              </a>
+          <% end %> 
+        </div>
       <% end %>
 
-<%= form_with model: @step do |form| %>
-
-    <%= form.hidden_field :quest_id, value: params[:quest_id] %>
-
-  <div>
-    <%= form.label :titre %><br>
-    <%= form.text_field :titre %>
-    <% @step.errors.full_messages_for(:titre).each do |message| %>
-      <div><%= message %></div>
-      <% end %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :xp %><br>
-    <%= form.number_field :xp, min:0 %>
-    <% @step.errors.full_messages_for(:xp).each do |message| %>
-      <div><%= message %></div>
-      <% end %>
-  </div>
-
-  <div>
-    <%= form.label :monster_id %><br>
-    <%= form.collection_select :monster_id, Monster.all, :id, :name, { include_blank: 'Sélectionnez un élément' } %>
-    <% @step.errors.full_messages_for(:monster_id).each do |message| %>
-      <div><%= message %></div>
-      <% end %>
-  </div>
-  
-  <% if session[:quest_id] %>
-    <a href="/monsters/?quest_id=<%= params[:quest_id] %>">
-      <%= "créer un monstre" %>
-    </a>
-  <% end %>
-
-    <div>
-    <%= form.label :enigme_id %><br>
-    <%= form.collection_select :enigme_id, Enigme.all, :id, :titre,  { include_blank: 'Sélectionnez un élément' } %>
-    <% @step.errors.full_messages_for(:enigme_id).each do |message| %>
-      <div><%= message %></div>
-      <% end %>
-  </div>
-
-  <% if session[:quest_id] %>
-    <a href="/enigmes">
-      <%= "créer une enigme " %>
-    </a>
-  <% end %>
-    
-  <div>
-    <%= form.submit %>
-  </div>
-  <div>
-    <% if session[:check] %> 
-        <a href="/masters/<%= session[:master_id] %>">
-          <%= "Finir" %>
-        </a>
-    <% end %> 
-  </div>
-<% end %>
+</div>

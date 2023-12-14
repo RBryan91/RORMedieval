@@ -1,39 +1,48 @@
-<h1> Nom : <%= @character.name %></h1>
-<p> xp : <%= @character.xp %></p>
-<p> force : <%= @character.force %></p>
-<p> pv : <%= @character.pv %></p>
-<p> po : <%= @character.po %></p>
-<p> level : <%= @character.level %></p>
-<a href = "/hdv">Hdv</a>
+<div class="container show-players-container">
+    <div class="row justify-content-center">
+        <div class="col-5 show-players-content">
 
-<% inactive_items = @inventories.select { |item| !item.active } %>
-<% active_items = @inventories.select { |item| item.active } %>
+        <h1> Nom : <%= @character.name %></h1>
+      <div class="row justify-content-between">
+        <p> xp : <%= @character.xp %></p>
+        <p> force : <%= @character.force %></p>
+        <p> pv : <%= @character.pv %></p>
+        <p> po : <%= @character.po %></p>
+        <p> level : <%= @character.level %></p>
+        <% if session[:level] == "true" %>
+        <p>LEVEL UP !!!</p>
+        <%end%>
+      </div>
+        <a class="btn btn-primary button-connexion" href = "/hdv">Hdv</a>
 
-<% flash.each do |key, message| %>
-  <div class="flash <%= key %>">
-    <%= message %>
-  </div>
-<% end %>
+        <% inactive_items = @inventories.select { |item| !item.active } %>
+        <% active_items = @inventories.select { |item| item.active } %>
 
-<div class="inventory-column">
-  <h2>Inventory</h2>
-  <% if inactive_items.present? %>
-    <%= form_tag(move_items_path, method: :patch) do %>
-      <% inactive_items.each do |item| %>
-        <label>
-          <%= check_box_tag "item_ids[]", item.id %>
-          <%= item.item.name %>
-        </label>
-        <br>
-      <% end %>
-      <%= submit_tag "Move to Stuff", name: "move_to_stuff" %>
-    <% end %>
-  <% else %>
-    <p>Votre inventaire est vide.</p>
-  <% end %>
-</div>
+        <% flash.each do |key, message| %>
+          <div class="flash <%= key %>">
+            <%= message %>
+          </div>
+        <% end %>
 
-<div class="stuff-column">
+        <div class="inventory-column">
+          <h2>Inventory</h2>
+          <% if inactive_items.present? %>
+            <%= form_tag(move_items_path, method: :patch) do %>
+              <% inactive_items.each do |item| %>
+                <label>
+                  <%= check_box_tag "item_ids[]", item.id %>
+                  <%= item.item.name %>
+                </label>
+                <br>
+              <% end %>
+              <%= submit_tag "Move to Stuff", name: "move_to_stuff" %>
+            <% end %>
+          <% else %>
+            <p>Votre inventaire est vide.</p>
+          <% end %>
+        </div>
+
+        <div class="stuff-column">
   <h2>Stuff</h2>
   <% if active_items.present? %>
     <%= form_tag(move_items_path, method: :patch) do %>
@@ -87,7 +96,7 @@
   <% end %>
 </div>
 
-<%= link_to "HdV", hdvs_path %>
 <%= link_to "Retour", player_path(session[:player_id]) %>
 <a href="/delete_character?character_id=<%= @character.id %>">Supprimer</a>
+
 

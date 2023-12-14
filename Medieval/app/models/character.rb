@@ -14,7 +14,7 @@ class Character < ApplicationRecord
   validates :level, presence: true
   validates :xp, presence: true
   validates :player_id, presence: true
-  validate :total_points_within_limit
+  validate :total_points_within_limit, on: :create
 
   def total_points_within_limit
     total_points = force.to_i + pv.to_i

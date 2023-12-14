@@ -29,6 +29,21 @@ class ApplicationController < ActionController::Base
     def current_character
       @current_character ||= Character.find(session[:character_id]) if session[:character_id]
     end
+
+    def level_up(xp)
+      @next_level = Level.find_by(level:@current_character.level + 1)
+      if @current_character.xp + xp >= @next_level.xp_total
+        @current_character.level += 1
+        @current_character.xp += xp
+        @current_character.save
+        session[:level] = true
+        return true
+      else
+        @current_character.xp += xp
+        @current_character.save!
+        return false
+      end
+    end
   
     def logged_in?
       !!current_master

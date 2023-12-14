@@ -4,11 +4,20 @@ class CharactersController < ApplicationController
     def show
       @character = Character.find(params[:id])
       session[:character_id] = @character.id
+      session.delete(:combat_messages)
+      session.delete(:current_quest)
+      session.delete(:current_step)
       @inventories = @character.inventorys.includes(:item)
       min_level = @character.level - 2
       max_level = @character.level + 2
-      @valid_quetes = Quest.where(level: min_level..max_level)
-      @in_progress = Quest.where(character_id: @character.id)
+      @valid_quetes = Quest
+      .joins(:steps)
+      .where(level: min_level..max_level)
+      .distinct
+      @in_progress = Quest
+      .joins(:steps)
+      .where(character_id: @character.id)
+      .distinct
       @in_progress_quest_ids = @in_progress.pluck(:id)
       @in_progress_steps = Step.where(quest_id: @in_progress_quest_ids)
       @in_progressStep = @in_progress_steps.where(character_id: @character.id)

@@ -18,8 +18,7 @@ class MastersController < ApplicationController
     end
 
     def logout
-      session[:master_id] = nil
-      session[:quest_id] = nil
+      reset_session
       redirect_to root_path
     end
 
