@@ -6,6 +6,10 @@
 <p> level : <%= @character.level %></p>
 <a href = "/hdv">Hdv</a>
 
+<% if session[:level] == "true" %>
+  <p>LEVEL UP !!!</p>
+<%end%>
+
 <% inactive_items = @inventories.select { |item| !item.active } %>
 <% active_items = @inventories.select { |item| item.active } %>
 

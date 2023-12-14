@@ -33,7 +33,7 @@ class PlayersController < ApplicationController
     end
 
     def logout
-      session[:player_id] = nil
+      reset_session
       redirect_to root_path
     end
 

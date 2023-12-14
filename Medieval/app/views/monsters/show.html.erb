@@ -1,15 +1,25 @@
+<% if session[:combat_messages].nil? %>
 <h1>Votre quete <%=params[:quest]%> vous mène a cette étape : <%=params[:step]%> </h1>
+<%end%>
 
 <h2> Un <%= @monster.name %> vous attaque ! </h2>
 
+<% if @monster.message %>
 <p> Le <%= @monster.name %> dit <%= @monster.message %> ! </p>
+<%end%>
 
-<p> pv : <%= @monster.pv %></p>
-
-
-<% if @monster.item %>
-  <p> item : <%= @monster.item.name %></p>
-  <p> rate : <%= @monster.rate %></p>
+<% if session[:combat_messages] %>
+<% session[:combat_messages].each do |message| %>
+  <p><%= message %></p>
 <% end %>
+<%end%>
+
+<% if session[:combat_messages].nil? %>
+    <a href="/fight?monster_id=<%= @monster.id %>">Fight !</a>
+<%else%>
+    <% unless params[:defeat] %>
+        <a href="/start_quest?quest_id=<%= params[:quest_id] %>&step_id=<%= params[:step_id] %>" >Next step !</a>
+    <%end%>
+<%end%>
 
 <%= link_to "Abandonner la quete", character_path(session[:character_id]) %>
