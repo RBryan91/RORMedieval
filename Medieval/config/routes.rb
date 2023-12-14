@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get "/monsters", to: "monsters#new"
   resources :monsters
 
+  get "/responses", to: "enigmes#responses"
   get "/enigmes", to: "enigmes#new"
   resources :enigmes
 
