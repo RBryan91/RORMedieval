@@ -9,7 +9,11 @@
 
   <div>
     <%= step.label :xp, "xp" %>
-    <%= step.number_field :xp %>
+    <%= step.number_field :xp, min:0 %>
+  </div>
+    <div>
+    <%= step.label :po, "po" %>
+    <%= step.number_field :po, min:0 %>
   </div>
    <div>
     <%= step.label :monster_id, "Monster" %>

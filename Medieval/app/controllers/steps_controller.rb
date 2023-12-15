@@ -58,6 +58,7 @@ class StepsController < ApplicationController
           session.delete(:combat_messages)
           @character.update(quest_id: nil)
           @quest.update(character_id:nil)
+          @character.update(po:@character.po + @quest.po)
           level_up(@quest.xp)
           inventory = Inventory.new(item_id:@quest.item.id,active:false,character_id:@character.id)
           inventory.save
@@ -94,7 +95,7 @@ class StepsController < ApplicationController
 
     private
       def step_params 
-          params.require(:step).permit(:titre, :xp, :monster_id, :enigme_id, :quest_id)          
+          params.require(:step).permit(:titre, :xp, :monster_id, :enigme_id, :quest_id,:po)          
       end
 
       def redirect(current_step,title,finish = false)

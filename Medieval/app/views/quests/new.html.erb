@@ -30,6 +30,14 @@
             <% end %>
         </div>
 
+        <div class='mt-3'>
+          <b><%= form.label :po %></b><br>
+          <%= form.number_field :po, min:0 %>
+          <% @quest.errors.full_messages_for(:po).each do |message| %>
+            <div><%= message %></div>
+            <% end %>
+        </div>
+
         <div>
           <b><%= form.label :level %></b><br>
           <%= form.number_field :level, min:0 %>
