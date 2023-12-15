@@ -76,10 +76,21 @@ class InventorysController < ApplicationController
         character.update(
         force: character.force + total_force,
         pv: character.pv + total_pv,
-        
+        bonus_xp: character.bonus_xp + total_xp
       )
       elsif move_to_inventory?(params)
         Inventory.where(id: item_ids).update_all(active: false)
+        inventory_ids = Inventory.where(id: item_ids)
+        items = Item.where(id:inventory_ids.pluck(:item_id))
+        total_force = items.sum(:force)
+        total_pv = items.sum(:pv)
+        total_xp = items.sum(:xp)
+        character = current_character
+        character.update(
+        force: character.force - total_force,
+        pv: character.pv - total_pv,
+        bonus_xp: character.bonus_xp - total_xp
+      )
       end
     end
   end

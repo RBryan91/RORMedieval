@@ -10,5 +10,7 @@ class Quest < ApplicationRecord
   validates :xp, presence: true, numericality: { greater_than: 0 }
   validates :item_id, presence: true
   validates :master_id, presence: true
+  validates :po, presence: true, numericality: { greater_than: 0 }
+
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_14_151014) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_15_113117) do
   create_table "answers", force: :cascade do |t|
     t.integer "enigme_id", null: false
     t.text "true"
@@ -129,6 +129,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_151014) do
     t.datetime "updated_at", null: false
     t.integer "character_id"
     t.integer "level"
+    t.integer "po"
     t.index ["character_id"], name: "index_quests_on_character_id"
     t.index ["item_id"], name: "index_quests_on_item_id"
     t.index ["master_id"], name: "index_quests_on_master_id"
@@ -142,10 +143,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_151014) do
     t.string "titre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "player"
-    t.bigint "monster"
-    t.bigint "enigme"
     t.integer "character_id"
+    t.bigint "player_id"
+    t.integer "po"
     t.index ["character_id"], name: "index_steps_on_character_id"
     t.index ["enigme_id"], name: "index_steps_on_enigme_id"
     t.index ["monster_id"], name: "index_steps_on_monster_id"

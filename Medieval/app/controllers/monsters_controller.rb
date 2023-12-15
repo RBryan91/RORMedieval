@@ -35,8 +35,11 @@ class MonstersController < ApplicationController
             # Monster is defeated
             @combat_messages << "You defeated the #{@monster.name} !"
             @combat_messages << "VICTORY !"
-            @combat_messages << "You earn #{@step.xp} xp after this battle !"
-            if level_up(@step.xp)
+            @combat_messages << "You earn #{@step.xp} xp and #{@step.po} po after this battle !"
+            @character.update(po:@character.po + @step.po)
+            @bonus_percentage = (100 + @character.bonus_xp) / 100.0
+            @final_xp = (@step.xp * @bonus_percentage).to_i
+            if level_up(@final_xp)
               @combat_messages << "You passed level #{@character.level} !!! Go back to your character menu to split your characteristics points."
             end
             if @monster.item

@@ -40,6 +40,7 @@ class CharactersController < ApplicationController
       @character.level = 1
       @character.po = 0
       @character.xp = 0
+      @character.bonus_xp = 0
 
       if @character.save
         session[:character_id] = @character.id
@@ -68,9 +69,9 @@ class CharactersController < ApplicationController
         
    private
      def character_params 
-       params.require(:character).permit(:name, :force, :pv, :player_id, :po, :level, :xp)
+       params.require(:character).permit(:name, :force, :pv, :player_id, :po, :level, :xp, :bonus_xp)
      end
      def character_params_edit
-      params.require(:character).permit(:force, :pv, :xp, :level, :po)
+      params.require(:character).permit(:force, :pv, :xp, :level, :po, :bonus_xp)
     end
   end

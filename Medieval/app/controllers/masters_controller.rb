@@ -28,7 +28,7 @@ class MastersController < ApplicationController
       @step = Step.where(quest_id: @quest.pluck(:id))
       session.delete(:check)
       session.delete(:quest_id)
-      
+      @quest_in_progress = Quest.includes(:steps, :character).where(master_id: @master.id, character_id: !nil).where.not(steps: { character_id: nil })
     end
 
     def new
