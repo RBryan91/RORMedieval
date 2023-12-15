@@ -15,7 +15,7 @@ class EnigmesController < ApplicationController
       @enigme_id = @enigme_params[:id]
       @enigme = Enigme.find(@enigme_id)
       @answers = Answer.find_by(enigme_id:@enigme.id)
-      @quest = Quest.find(session[:current_quest])
+      @quest = Quest.includes(:item).find(session[:current_quest])
       @step = Step.find(session[:current_step])
       @character = current_character
       @enigme_message = []
@@ -35,6 +35,7 @@ class EnigmesController < ApplicationController
         end
         if @step.id == @step_ids.last
           @enigme_message << "You dit it ! You finished the quest #{@quest.title} !!! Well played Hero ! "
+          @enigme_message << "You received #{@quest.item.name} as a reward !!!"
           @ended = true
         else
           @enigme_message << "You finished with success the step #{@step.titre}. Continue your quest #{@quest.title} !"
