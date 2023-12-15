@@ -1,0 +1,25 @@
+<h1>Modifier Caractéristiques</h1>
+
+<%= form_for @character, html: { id: 'edit_form' } do |character| %>
+
+  <div>
+    <%= character.label :force, "force" %>
+    <%= character.number_field :force, in: (@character.force..@character.force + 10), value: @character.force,id: 'character_forceBis' %>
+    <% @character.errors.full_messages_for(:force).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+    <div>
+    <%= character.label :pv, "pv" %>
+    <%= character.number_field :pv, in: (@character.pv..@character.pv + 10), value: @character.pv,id: 'character_pvBis' %>
+    <% @character.errors.full_messages_for(:pv).each do |message| %>
+      <div><%= message %></div>
+      <% end %>
+  </div>
+
+  <div>
+    <%= character.submit "Enregistrer les modifications" %>
+  </div>
+    <p id="remaining_pointsBis">Remaining points: 10</p>
+<% end %>
+<button id="reset_buttonBis" class="btn btn-secondary">Reset</button>

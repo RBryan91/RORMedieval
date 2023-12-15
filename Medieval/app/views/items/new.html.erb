@@ -21,7 +21,7 @@
 
           <div>
             <b><%= form.label :xp %></b><br>
-            <%= form.number_field :xp %>
+            <%= form.number_field :xp, in: -100..100 %>
             <% @item.errors.full_messages_for(:xp).each do |message| %>
               <div><%= message %></div>
               <% end %>

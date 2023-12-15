@@ -20,6 +20,9 @@ class MonstersController < ApplicationController
         @quest = Quest.find(session[:current_quest])
         @step = Step.find(session[:current_step])
 
+        @Allsteps = Step.where(quest_id: @quest.id)
+        @step_ids = @Allsteps.map(&:id).sort
+
             # Assuming force and pv are numeric fields in your models
         while @monster.pv > 0 && @character.pv > 0
           # Character hits the monster
@@ -44,10 +47,16 @@ class MonstersController < ApplicationController
                 inventory.save
               end
             end
+            if @step.id == @step_ids.last
+              @combat_messages << "You dit it ! You finished the quest #{@quest.title} !!! Well played Hero ! "
+              @ended = true
+            else
+              @combat_messages << "You finished with success the step #{@step.titre}. Continue your quest #{@quest.title} !"
+            end
             session[:combat_messages] = @combat_messages
             @character.update(pv:@character_original_pv)
             @monster.update(pv:@monster_original_pv)
-            redirect_to monster_path(@monster,quest_id:@quest.id,step_id:@step.id)
+            redirect_to monster_path(@monster,quest_id:@quest.id,step_id:@step.id,ended:@ended)
             return
           end
 
@@ -59,6 +68,8 @@ class MonstersController < ApplicationController
           if @character.pv <= 0
             # Character is defeated
             @combat_messages << "You were defeated by the #{@monster.name} !"
+            @combat_messages << "Your quest #{@quest.title} ends here at #{@step.titre}..."
+            @combat_messages << "Come back stronger hero !"
             @combat_messages << "GAME OVER !"
             session[:combat_messages] = @combat_messages
             @character.update(pv:@character_original_pv)

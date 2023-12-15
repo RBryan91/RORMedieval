@@ -9,8 +9,8 @@
         <p> pv : <%= @character.pv %></p>
         <p> po : <%= @character.po %></p>
         <p> level : <%= @character.level %></p>
-        <% if session[:level] == "true" %>
-        <p>LEVEL UP !!!</p>
+        <% if session[:level] == true %>
+        <%= link_to "Level UP !", edit_character_path(@character) %>
         <%end%>
       </div>
         <a class="btn btn-primary button-connexion" href = "/hdv">Hdv</a>

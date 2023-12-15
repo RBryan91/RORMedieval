@@ -5,7 +5,7 @@
 
 <h1>New Character</h1>
 
-<%= form_with model: @character do |form| %>
+<%= form_with model: @character,html: { id: 'form' } do |form| %>
   <div>
     <%= form.label :name %><br>
     <%= form.text_field :name %>
