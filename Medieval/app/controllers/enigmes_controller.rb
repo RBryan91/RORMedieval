@@ -35,7 +35,7 @@ class EnigmesController < ApplicationController
         end
         if @step.id == @step_ids.last
           @enigme_message << "You dit it ! You finished the quest #{@quest.title} !!! Well played Hero ! "
-          @enigme_message << "You received #{@quest.item.name} as a reward !!!"
+          @enigme_message << "You received #{@quest.item.name}, #{@quest.po} po and #{@quest.xp} as a reward !!!"
           @ended = true
         else
           @enigme_message << "You finished with success the step #{@step.titre}. Continue your quest #{@quest.title} !"
