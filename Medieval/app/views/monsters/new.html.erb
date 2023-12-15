@@ -52,6 +52,25 @@
                 <% end %>
             </div>
 
+             <div class="form-group">
+              <%= form.label :avatar %><br>
+              <div class="custom-dropdown">
+                <select class="form-control" name="monster[avatar]" id="avatar-select">
+                  <option value="">Select an avatar</option>
+                  <% Dir.glob('app/assets/images/avatar/monster/*.{png,svg,jpg}').each do |path| %>
+                    <% filename = File.basename(path, '.*') %>
+                    <option data-image="<%= image_path("avatar/monster/#{filename}#{File.extname(path)}") %>"><%= filename %></option>
+                  <% end %>
+                </select>
+                <div class="image-preview" id="image-preview-container" style="display: none;">
+                <img src="" alt="Avatar Preview" id="avatar-preview">
+              </div>
+              </div>
+              <% @monster.errors.full_messages_for(:avatar).each do |message| %>
+                <div><%= message %></div>
+              <% end %>
+            </div>
+
             <div>
               <%= form.submit class: 'btn btn-primary button-connexion mt-3'%>
             </div>
