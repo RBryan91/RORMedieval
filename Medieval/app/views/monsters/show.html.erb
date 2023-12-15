@@ -32,6 +32,12 @@
     </div>
 <% end %>
 
+<% if params[:defeat] == "true" %>
+    <div>
+        <%= image_tag "avatar/mort2.png", alt: "Avatar" %>
+    </div>
+<% end %>
+
 <%end%>
 
 <% if session[:combat_messages].nil? %>

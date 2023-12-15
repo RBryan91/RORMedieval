@@ -8,6 +8,10 @@ class Monster < ApplicationRecord
   validates :force, presence: true
   validates :rate, presence: true, if: :item_id_present?
 
+  def set_full_path_for_avatar(filename)
+    self.avatar = File.join('avatar/monster', filename)
+  end
+
   def item_id_present?
     item_id.present?
   end

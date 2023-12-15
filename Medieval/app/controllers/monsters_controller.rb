@@ -96,8 +96,7 @@ class MonstersController < ApplicationController
   
       def create
           @monster = Monster.new(monster_params)
-          @monster.avatar = "avatar/bouftou.svg"
-          
+          @monster.set_full_path_for_avatar(params[:monster][:avatar])
         if @monster.save
           if session[:quest_id]
             redirect_to new_step_path(quest_id:session[:quest_id])
@@ -111,7 +110,7 @@ class MonstersController < ApplicationController
         
       private
         def monster_params 
-          params.require(:monster).permit(:name, :force, :pv, :item_id, :rate, :message)
+          params.require(:monster).permit(:name, :force, :pv, :item_id, :rate, :message, :avatar)
         end
 
 end
