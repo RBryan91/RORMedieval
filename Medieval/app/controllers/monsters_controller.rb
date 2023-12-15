@@ -99,10 +99,14 @@ class MonstersController < ApplicationController
           @monster.avatar = "avatar/bouftou.svg"
           
         if @monster.save
+          if session[:quest_id]
             redirect_to new_step_path(quest_id:session[:quest_id])
           else
-            render :new, status: :unprocessable_entity
+          redirect_to master_path(current_master)  
           end
+        else
+          render :new, status: :unprocessable_entity
+        end
       end
         
       private

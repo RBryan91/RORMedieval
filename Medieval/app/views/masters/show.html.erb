@@ -3,6 +3,14 @@
         <div class="col-7 show-players-content">
             <h1>Bonjour <%= @master.username %></h1>
                 <%= link_to "Créer une quête", new_quest_path, class: 'text-center mt-3 btn button-connexion' %>
+                <div>
+                    <a class="btn btn-primary button-connexion mt-3"  href="/monsters">
+                        <%= "Créer un monstre" %>
+                     </a>
+                     <a class="btn btn-primary button-connexion mt-3"  href="/enigmes">
+                        <%= "Créer une enigme" %>
+                    </a>
+                </div>
                 <div class="row justify-content-center">
                 <h2 class="mt-4 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Quests and Steps <i class="arrow down"></i></h2>
                 <% if @quest.any? %>
