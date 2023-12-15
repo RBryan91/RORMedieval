@@ -1,9 +1,11 @@
 <% if params[:win] == "true" %>
-    <h1>Félicitation vous avez repondu avec brio ! </h1>
-    <h2> Cliquez sur suivant pour continuer ! </h2>
-    <a href="/start_quest?quest_id=<%= params[:quest_id]%>&step_id=<%= params[:step_id]%>"></a>  , character_path(session[:character_id]) 
+    <% if session[:enigme_message] %>
+      <% session[:enigme_message].each do |single| %>
+        <p><%= single %></p>
+      <% end %> 
+    <% end %>
+    <a href="/start_quest?quest_id=<%= params[:quest_id] %>&step_id=<%= params[:step_id] %>">Next Step ! </a> 
   <% elsif params[:win] == "false" %>
-    <h1>Game over gros nul ! </h1>
     <%= link_to "Retour a l'accueil", character_path(session[:character_id]) %>
   <% else %>
     <h1>Votre quete <%=params[:quest]%> vous mène a cette étape : <%=params[:step]%> </h1>
