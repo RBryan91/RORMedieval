@@ -3,15 +3,35 @@
 <%end%>
 
 <h2> Un <%= @monster.name %> vous attaque ! </h2>
-
 <% if @monster.message %>
 <p> Le <%= @monster.name %> dit <%= @monster.message %> ! </p>
 <%end%>
+
+<div>
+<%= image_tag @monster.avatar, alt: "Avatar" %>
+
+<% if session[:combat_messages] %>
+    <%= image_tag "avatar/boum.png", alt: "Avatar" %>
+<% end %>
+<%= image_tag "avatar/character.png",size: "180x180", alt: "Avatar" %>
+</div>
 
 <% if session[:combat_messages] %>
 <% session[:combat_messages].each do |message| %>
   <p><%= message %></p>
 <% end %>
+<% if params[:drop] == "true" %>
+    <div>
+        <%= image_tag @monster.item.image, alt: "Avatar" %>
+    </div>
+<% end %>
+
+<% if params[:ended] == "true" %>
+    <div>
+        <%= image_tag @quest.item.image, alt: "Avatar" %>
+    </div>
+<% end %>
+
 <%end%>
 
 <% if session[:combat_messages].nil? %>

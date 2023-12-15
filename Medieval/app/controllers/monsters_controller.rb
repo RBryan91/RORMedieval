@@ -8,7 +8,11 @@ class MonstersController < ApplicationController
       end
 
       def show
-        @monster = Monster.find(params[:id])
+        @monster = Monster.includes(:item).find(params[:id])
+        if session[:current_quest]
+          @quest = Quest.includes(:item).find(session[:current_quest])
+        end
+        
       end
 
       def fight
@@ -17,7 +21,7 @@ class MonstersController < ApplicationController
         @character_original_pv = @character.pv
         @monster_original_pv = @monster.pv
         @combat_messages = []
-        @quest = Quest.find(session[:current_quest])
+        @quest = Quest.includes(:item).find(session[:current_quest])
         @step = Step.find(session[:current_step])
 
         @Allsteps = Step.where(quest_id: @quest.id)
@@ -45,10 +49,14 @@ class MonstersController < ApplicationController
                 @combat_messages << "AWESOME ! You find a #{@monster.item.name} on the corpse of this #{@monster.name} !"
                 inventory = Inventory.new(item_id:@monster.item.id,active:false,character_id:@character.id)
                 inventory.save
+                @drop = true
+                
               end
             end
             if @step.id == @step_ids.last
               @combat_messages << "You dit it ! You finished the quest #{@quest.title} !!! Well played Hero ! "
+              @combat_messages << "You received #{@quest.item.name} and #{@quest.xp} as a reward !!!"
+
               @ended = true
             else
               @combat_messages << "You finished with success the step #{@step.titre}. Continue your quest #{@quest.title} !"
@@ -56,7 +64,7 @@ class MonstersController < ApplicationController
             session[:combat_messages] = @combat_messages
             @character.update(pv:@character_original_pv)
             @monster.update(pv:@monster_original_pv)
-            redirect_to monster_path(@monster,quest_id:@quest.id,step_id:@step.id,ended:@ended)
+            redirect_to monster_path(@monster,quest_id:@quest.id,step_id:@step.id,ended:@ended,drop:@drop)
             return
           end
 
@@ -86,6 +94,7 @@ class MonstersController < ApplicationController
   
       def create
           @monster = Monster.new(monster_params)
+          @monster.avatar = "avatar/bouftou.svg"
           
         if @monster.save
             redirect_to new_step_path(quest_id:session[:quest_id])
