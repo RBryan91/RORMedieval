@@ -67,6 +67,17 @@ class InventorysController < ApplicationController
     def move_items_based_on_action(params, item_ids)
       if move_to_stuff?(params)
         Inventory.where(id: item_ids).update_all(active: true)
+        inventory_ids = Inventory.where(id: item_ids)
+        items = Item.where(id:inventory_ids.pluck(:item_id))
+        total_force = items.sum(:force)
+        total_pv = items.sum(:pv)
+        total_xp = items.sum(:xp)
+        character = current_character
+        character.update(
+        force: character.force + total_force,
+        pv: character.pv + total_pv,
+        
+      )
       elsif move_to_inventory?(params)
         Inventory.where(id: item_ids).update_all(active: false)
       end
