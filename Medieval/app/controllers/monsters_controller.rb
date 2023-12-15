@@ -52,6 +52,7 @@ class MonstersController < ApplicationController
             end
             if @step.id == @step_ids.last
               @combat_messages << "You dit it ! You finished the quest #{@quest.title} !!! Well played Hero ! "
+              @combat_messages << "You received #{@quest.item.name}, #{@quest.po} po and #{@quest.xp} as a reward !!!"
               @ended = true
             else
               @combat_messages << "You finished with success the step #{@step.titre}. Continue your quest #{@quest.title} !"
