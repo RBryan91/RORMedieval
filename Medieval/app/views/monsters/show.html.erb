@@ -16,10 +16,17 @@
 
 <% if session[:combat_messages].nil? %>
     <a href="/fight?monster_id=<%= @monster.id %>">Fight !</a>
+    <%= link_to "Abandonner la quete", character_path(session[:character_id]) %>
 <%else%>
     <% unless params[:defeat] %>
+        <% if params[:ended] == "true" %>
+        <a href="/start_quest?quest_id=<%= params[:quest_id] %>&step_id=<%= params[:step_id] %>" >Allez se reposer</a>
+        <%else%>
         <a href="/start_quest?quest_id=<%= params[:quest_id] %>&step_id=<%= params[:step_id] %>" >Next step !</a>
+        <%= link_to "Abandonner la quete", character_path(session[:character_id]) %>
+        <%end%>
+    <%else%>
+        <a href="/lost_quest">Retour au menu</a>
     <%end%>
 <%end%>
 
-<%= link_to "Abandonner la quete", character_path(session[:character_id]) %>

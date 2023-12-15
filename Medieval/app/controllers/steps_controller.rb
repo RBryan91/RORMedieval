@@ -1,5 +1,5 @@
 class StepsController < ApplicationController
-    before_action :require_login, except: [:startQuest]
+    before_action :require_login, except: [:startQuest,:lost_quest]
 
     def new
         @step = Step.new
@@ -74,6 +74,22 @@ class StepsController < ApplicationController
         end
       end
 
+    end
+
+    def lost_quest
+      @character = current_character
+      @quest = Quest.find(session[:current_quest])
+      @steps = Step.where(quest_id: @quest.id)
+      @step_ids = @steps.map(&:id).sort
+      @current_step = Step.find(session[:current_step])
+      update_previous_steps_to_nil(@current_step)
+      @current_step.update(character_id:nil)
+      @character.update(quest_id: nil)
+      @quest.update(character_id:nil)
+      session.delete(:current_quest)
+      session.delete(:current_step)
+      session.delete(:combat_messages)
+      redirect_to character_path(@character)
     end
 
     private

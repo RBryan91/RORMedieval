@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
   var totalPoints = 30;
-  
+
+  // Script for the first form
   var forceInput = document.getElementById('character_force');
   var pvInput = document.getElementById('character_pv');
   var remainingPointsElement = document.getElementById('remaining_points');
   var resetButton = document.getElementById('reset_button');
 
   function updateRemainingPoints() {
+    console.log("should not be here");
     var forcePoints = parseInt(forceInput.value) || 0;
     var pvPoints = parseInt(pvInput.value) || 0;
     var remainingPoints = totalPoints - forcePoints - pvPoints;
@@ -25,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
   pvInput.addEventListener('input', updateRemainingPoints);
   resetButton.addEventListener('click', resetValues);
 
-  var form = document.querySelector('form'); // Adjust the selector based on your actual form
+  var form = document.querySelector('#form'); // Adjust the selector based on your actual form
   form.addEventListener('submit', function() {
     // Enable the inputs before form submission
     forceInput.disabled = false;
@@ -34,4 +36,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initial update
   updateRemainingPoints();
+
 });

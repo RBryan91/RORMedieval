@@ -48,9 +48,29 @@ class CharactersController < ApplicationController
         render :new, status: :unprocessable_entity
       end
    end
+
+  def edit
+    @character = Character.find(params[:id])
+  end  
+
+  def update
+    @character = Character.find(params[:id])
+    if (character_params_edit[:force].to_i + character_params_edit[:pv].to_i) - (@character.force + @character.pv) != 10
+      render :edit, status: :unprocessable_entity
+    end
+      if @character.update(character_params_edit)
+        session.delete(:level)
+        redirect_to @character
+      else
+        render :edit, status: :unprocessable_entity
+      end
+  end
         
    private
      def character_params 
        params.require(:character).permit(:name, :force, :pv, :player_id, :po, :level, :xp)
      end
+     def character_params_edit
+      params.require(:character).permit(:force, :pv, :xp, :level, :po)
+    end
   end
