@@ -51,7 +51,9 @@
 .body-main{
 
     background-image: url('../assets/background-main.png');
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #000000;
   }
 
   .button-link-inscrire{
@@ -69,7 +71,7 @@
 
 
   .show-players-container{
-    margin-top: 3rem;
+    margin: 3rem;
     text-align: center;
   }
 
