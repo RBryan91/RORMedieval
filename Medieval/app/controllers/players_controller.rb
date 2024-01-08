@@ -46,7 +46,7 @@ class PlayersController < ApplicationController
         redirect_to player_path(@player)
       else
         flash.now[:alert] = "Nom d'utilisateur ou mot de passe incorrect."
-        redirect_to login_players_path
+        render :login
       end
     end
   
