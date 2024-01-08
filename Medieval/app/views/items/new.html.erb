@@ -3,6 +3,9 @@
     <div class="col-5 fomulaire-inscription">
       <h1>New Item</h1>
         <%= form_with model: @item do |form| %>
+
+        <%= hidden_field_tag :source, @source %>
+
           <div>
             <b><%= form.label :name %></b><br>
             <%= form.text_field :name %>

@@ -1,105 +1,131 @@
 <div class="container show-players-container">
-    <div class="row justify-content-center">
-        <div class="col-5 show-players-content">
-          <%= image_tag @character.avatar, alt: "Avatar" %>
-        <h1> Nom : <%= @character.name %></h1>
-      <div class="row justify-content-between">
-        <p> xp : <%= @character.xp %></p>
-        <p> force : <%= @character.force %></p>
-        <p> pv : <%= @character.pv %></p>
-        <p> bonus_xp : <%= @character.bonus_xp %>% </p>
-        <p> po : <%= @character.po %></p>
-        <p> level : <%= @character.level %></p>
-        <% if session[:level] == true %>
-        <%= link_to "Level UP !", edit_character_path(@character) %>
-        <%end%>
-      </div>
-
-        <a class="btn btn-primary button-connexion" href = "/hdv">Hdv</a>
-
-        <% inactive_items = @inventories.select { |item| !item.active } %>
-        <% active_items = @inventories.select { |item| item.active } %>
-
-        <% flash.each do |key, message| %>
-          <div class="flash <%= key %>">
-            <%= message %>
+  <div class="row justify-content-center">
+    <div class="col-5 show-players-content">
+          <div class = "col">
+            <%= image_tag @character.avatar, alt: "Avatar" %>
+            <h1> Nom : <%= @character.name %></h1>
           </div>
-        <% end %>
+          <div class="row justify-content-between">
+            <p> xp : <%= @character.xp %></p>
+            <p> force : <%= @character.force %></p>
+            <p> pv : <%= @character.pv %></p>
+            <p> bonus_xp : <%= @character.bonus_xp %>% </p>
+            <p> po : <%= @character.po %></p>
+            <p> level : <%= @character.level %></p>
+            <% if session[:level] == true %>
+            <%= link_to "Level UP !", edit_character_path(@character) %>
+            <%end%>
+          </div>
 
-        <div class="inventory-column">
-          <h2>Inventory</h2>
-          <% if inactive_items.present? %>
-            <%= form_tag(move_items_path, method: :patch) do %>
-              <% inactive_items.each do |item| %>
-                <label>
-                  <%= check_box_tag "item_ids[]", item.id %>
-                  <%= item.item.name %>
-                   <%= image_tag item.item.image, alt: "Avatar" %>
-                </label>
-                <br>
-              <% end %>
-              <%= submit_tag "Move to Stuff", name: "move_to_stuff" %>
-            <% end %>
-          <% else %>
-            <p>Votre inventaire est vide.</p>
+          <a class="btn btn-primary button-connexion" href = "/hdv">Hdv</a>
+
+          <% inactive_items = @inventories.select { |item| !item.active } %>
+          <% active_items = @inventories.select { |item| item.active } %>
+
+          <% flash.each do |key, message| %>
+            <div class="flash <%= key %>">
+              <%= message %>
+            </div>
           <% end %>
-        </div>
 
-        <div class="stuff-column">
-  <h2>Stuff</h2>
-  <% if active_items.present? %>
-    <%= form_tag(move_items_path, method: :patch) do %>
-      <% active_items.each do |item| %>
-        <label>
-          <%= check_box_tag "item_ids[]", item.id %>
-          <%= item.item.name %>
-        </label>
-        <br>
-      <% end %>
-      <%= submit_tag "Move to Inventory", name: "move_to_inventory" %>
-    <% end %>
-  <% else %>
-    <p>Vous avez pas de stuff equipé.</p>
-  <% end %>
-</div>
-
-<div class="quete-column">
-  <h2>Quetes disponibles</h2>
-  <% quests_to_display = @valid_quetes.reject { |quest| @in_progress.include?(quest) } %>
-  <% if quests_to_display.size > 0 %>
-    <ul>
-      <% quests_to_display.each do |quete| %> 
-        <li><a href="/start_quest?quest_id=<%= quete.id %>" ><%= quete.title %></a> - Level <%= quete.level %></li>
-      <% end %>
-    </ul>
-    <% else %>
-    <p>Vous avez pas de quete disponible.</p>
-  <% end %>
-</div>
-
-<div class="quete-en-cour-column">
-  <h2>Quetes en cours</h2>
-  <% if @in_progress.size > 0 %>
-    <ul>
-      <% @in_progress.each do |quete| %>
-        <li><%= quete.title %> - Level <%= quete.level %></li>
-        <% if @in_progressStep.size > 0 %>
-          <ul>
-            <% @in_progressStep.each do |step| %>
-             <% if step.quest_id == quete.id %>
-              <li><a href="/start_quest?quest_id=<%= quete.id %>?step_id=<%= step.id %>" ><%= step.titre %></a></li>
+          <div class="inventory-column">
+            <h2>Inventory</h2>
+            <% if inactive_items.present? %>
+              <%= form_tag(move_items_path, method: :patch) do %>
+                <% inactive_items.each do |item| %>
+                  <div>
+                    <%= check_box_tag "item_ids[]", item.id %>
+                    <%= item.item.name %>
+                    <%= image_tag item.item.image, alt: "Avatar" %>
+                    <div>
+                    <%if item.item.force != 0 %>
+                      <p> Bonus de force : <%= item.item.force%></p>
+                    <%end%>
+                    <%if item.item.pv != 0 %>
+                      <p> Bonus de vie : <%= item.item.pv%></p>
+                    <%end%>
+                    <%if item.item.xp != 0 %>
+                      <p> Bonus d'xp : <%= item.item.xp%>%</p>
+                    <%end%>
+                    </div>
+                  </div>
+                  <br>
+                <% end %>
+                <%= submit_tag "Move to Stuff", name: "move_to_stuff" %>
+              <% end %>
+            <% else %>
+              <p>Votre inventaire est vide.</p>
             <% end %>
-            <% end %>
-          </ul>
-        <% end %>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>Vous n'avez pas de quête en cours.</p>
-  <% end %>
-</div>
+          </div>
 
-<%= link_to "Retour", player_path(session[:player_id]) %>
-<a href="/delete_character?character_id=<%= @character.id %>">Supprimer</a>
+          <div class="stuff-column">
+            <h2>Stuff</h2>
+            <% if active_items.present? %>
+              <%= form_tag(move_items_path, method: :patch) do %>
+                <% active_items.each do |item| %>
+                  <label>
+                    <%= check_box_tag "item_ids[]", item.id %>
+                    <%= item.item.name %>
+                    <%= image_tag item.item.image, alt: "Avatar" %>
+                    <%if item.item.force != 0 %>
+                      <p> Bonus de force : <%= item.item.force%></p>
+                    <%end%>
+                    <%if item.item.pv != 0 %>
+                      <p> Bonus de vie : <%= item.item.pv%></p>
+                    <%end%>
+                    <%if item.item.xp != 0 %>
+                      <p> Bonus d'xp : <%= item.item.xp%>%</p>
+                    <%end%>
+                  </label>
+                  <br>
+                <% end %>
+                <%= submit_tag "Move to Inventory", name: "move_to_inventory" %>
+              <% end %>
+            <% else %>
+              <p>Vous avez pas de stuff equipé.</p>
+            <% end %>
+          </div>
+
+          <div class="quete-column">
+            <h2>Quetes disponibles</h2>
+            <% quests_to_display = @valid_quetes.reject { |quest| @in_progress.include?(quest) } %>
+            <% if quests_to_display.size > 0 %>
+              <ul>
+                <% quests_to_display.each do |quete| %> 
+                  <li><a href="/start_quest?quest_id=<%= quete.id %>" ><%= quete.title %></a> - Level <%= quete.level %></li>
+                <% end %>
+              </ul>
+              <% else %>
+              <p>Vous avez pas de quete disponible.</p>
+            <% end %>
+          </div>
+
+          <div class="quete-en-cour-column">
+            <h2>Quetes en cours</h2>
+            <% if @in_progress.size > 0 %>
+              <ul>
+                <% @in_progress.each do |quete| %>
+                  <li><%= quete.title %> - Level <%= quete.level %></li>
+                  <% if @in_progressStep.size > 0 %>
+                    <ul>
+                      <% @in_progressStep.each do |step| %>
+                      <% if step.quest_id == quete.id %>
+                        <li><a href="/start_quest?quest_id=<%= quete.id %>?step_id=<%= step.id %>" ><%= step.titre %></a></li>
+                      <% end %>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                <% end %>
+              </ul>
+            <% else %>
+              <p>Vous n'avez pas de quête en cours.</p>
+            <% end %>
+          </div>
+
+          <%= link_to "Retour", player_path(session[:player_id]) %>
+          <a href="/delete_character?character_id=<%= @character.id %>">Supprimer</a>
+    </div>
+  </div>
+</div>
 
 

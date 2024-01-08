@@ -38,7 +38,6 @@ class CharactersController < ApplicationController
       @character = Character.new(character_params)
       @character.player_id = session[:player_id]
       @character.level = 1
-      @character.avatar = "avatar/character.png"
       @character.po = 0
       @character.xp = 0
       @character.bonus_xp = 0
@@ -70,7 +69,7 @@ class CharactersController < ApplicationController
         
    private
      def character_params 
-       params.require(:character).permit(:name, :force, :pv, :player_id, :po, :level, :xp, :bonus_xp)
+       params.require(:character).permit(:name, :force, :pv, :player_id, :po, :level, :xp, :bonus_xp, :avatar)
      end
      def character_params_edit
       params.require(:character).permit(:force, :pv, :xp, :level, :po, :bonus_xp)

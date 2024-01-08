@@ -3,8 +3,6 @@ class MonstersController < ApplicationController
       
       def new
         @monster = Monster.new
-        @monster.pv = 0
-        @monster.force = 0
       end
 
       def show
@@ -96,7 +94,6 @@ class MonstersController < ApplicationController
   
       def create
           @monster = Monster.new(monster_params)
-          @monster.set_full_path_for_avatar(params[:monster][:avatar])
         if @monster.save
           if session[:quest_id]
             redirect_to new_step_path(quest_id:session[:quest_id])

@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
         end
         
       if @item.save
-          redirect_to new_quest_path
+          redirect_to master_path(current_master) 
         else
           render :new, status: :unprocessable_entity
         end
@@ -34,6 +34,6 @@ class ItemsController < ApplicationController
 
     private
       def item_params 
-        params.require(:item).permit(:name, :category, :pv, :force, :xp)
+        params.require(:item).permit(:name, :category, :pv, :force, :xp, :source)
       end
 end
