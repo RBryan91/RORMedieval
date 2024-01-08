@@ -52,6 +52,8 @@
 
     background-image: url('../assets/background-main.png');
     background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #000000;
   }
 
   .button-link-inscrire{
@@ -69,7 +71,7 @@
 
 
   .show-players-container{
-    margin-top: 3rem;
+    margin: 3rem;
     text-align: center;
   }
 
@@ -181,3 +183,46 @@
   font-size: 1rem;
  }
 
+
+ .show-players-info{
+  background-color: rgba(255, 255, 255, 0.5); 
+  padding: 2rem;
+  margin-left: 2rem;
+  border-radius: 5%;
+
+ }
+ .show-players-profile > img{
+
+    width: 80%;
+
+ }
+
+ .show-players-skills{
+  display: flex;
+
+  flex-wrap: wrap;
+  height: fit-content;
+  margin-top: 1.5rem;
+ }
+
+ .show-players-skills > .col-6 > p {
+    font-size: 1.3rem;
+    margin-right: 1.5rem;
+    line-height: 1.5rem;
+
+    
+  }
+  .show-players-skills > .col-6:nth-child(1) > p{
+   padding-right: 3.4rem;
+  border-right: 1px solid #fff;
+ }
+
+ .show-players-skills > .col-6{
+  text-align: left;
+ } 
+
+ .button-retour{
+  position: absolute;
+  top: 18rem;
+}
+ 

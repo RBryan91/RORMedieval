@@ -14,6 +14,7 @@
             <ul>
               <% @hdv.each do |hdv| %>
                 <li>
+                  <%= image_tag hdv.item.image, alt: "Avatar" %>
                   <%= link_to hdv.item.name, item_path(hdv.item_id) %>
                   <%= "#{hdv.price} po" %>
                   <% if hdv.character_id == session[:character_id] %>

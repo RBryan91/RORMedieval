@@ -29,6 +29,14 @@
         </div>
 
         <div>
+          <%= form.label :po %><br>
+          <%= form.number_field :po, min:0 %>
+          <% @step.errors.full_messages_for(:po).each do |message| %>
+            <div><%= message %></div>
+            <% end %>
+        </div>
+
+        <div>
           <%= form.label :monster_id %><br>
           <%= form.collection_select :monster_id, Monster.all, :id, :name, { include_blank: 'Sélectionnez un élément' } %>
           <% @step.errors.full_messages_for(:monster_id).each do |message| %>

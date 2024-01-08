@@ -3,6 +3,9 @@
     <div class="col-5 fomulaire-inscription">
       <h1>New Item</h1>
         <%= form_with model: @item do |form| %>
+
+        <%= hidden_field_tag :source, @source %>
+
           <div>
             <b><%= form.label :name %></b><br>
             <%= form.text_field :name %>
@@ -21,7 +24,7 @@
 
           <div>
             <b><%= form.label :xp %></b><br>
-            <%= form.number_field :xp %>
+            <%= form.number_field :xp, in: -100..100 %>
             <% @item.errors.full_messages_for(:xp).each do |message| %>
               <div><%= message %></div>
               <% end %>

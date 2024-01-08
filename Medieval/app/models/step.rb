@@ -7,6 +7,7 @@ class Step < ApplicationRecord
   validates :titre, presence: true
   validates :xp, presence: true, numericality: { greater_than: 0 }
   validates :quest_id, presence: true
+  validates :po, presence: true, numericality: { greater_than: 0 }
 
   validate :validate_monster_or_enigme_presence
 

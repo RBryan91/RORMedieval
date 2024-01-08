@@ -5,7 +5,7 @@
 
 <h1>New Character</h1>
 
-<%= form_with model: @character do |form| %>
+<%= form_with model: @character,html: { id: 'form' } do |form| %>
   <div>
     <%= form.label :name %><br>
     <%= form.text_field :name %>
@@ -30,6 +30,7 @@
     <% end %>
 </div>
 
+
 <% if @character.errors.full_messages_for(:base).any? %>
   <div>
     <% @character.errors.full_messages_for(:base).each do |message| %>
@@ -37,6 +38,25 @@
     <% end %>
   </div>
 <% end %>
+
+             <div class="form-group">
+              <%= form.label :avatar %><br>
+              <div class="custom-dropdown">
+                <select class="form-control" name="character[avatar]" id="avatar-selectBis">
+                  <option value="">Select an avatar</option>
+                  <% Dir.glob('app/assets/images/avatar/character/*.{png,svg,jpg}').each do |path| %>
+                    <% filename = File.basename(path, '.*') %>
+                    <option data-image="<%= image_path("avatar/character/#{filename}#{File.extname(path)}") %>"><%= filename %></option>
+                  <% end %>
+                </select>
+                <div class="image-preview" id="image-preview-containerBis" style="display: none;">
+                <img src="" alt="Avatar Preview" id="avatar-previewBis">
+              </div>
+              </div>
+              <% @character.errors.full_messages_for(:avatar).each do |message| %>
+                <div><%= message %></div>
+              <% end %>
+            </div>
 
   <div>
     <%= form.submit class: 'btn btn-primary button-connexion mt-3' %>

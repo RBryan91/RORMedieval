@@ -1,13 +1,48 @@
-<h1>Votre quete <%=params[:quest]%> vous mène a cette étape : <%=params[:step]%> </h1>
+<% if params[:win] == "true" %>
+    <% if session[:enigme_message] %>
+      <% session[:enigme_message].each do |single| %>
+        <p><%= single %></p>
+      <% end %> 
+    <% end %>
+    <% if params[:ended] == "true" %>
+        <a href="/start_quest?quest_id=<%= params[:quest_id] %>&step_id=<%= params[:step_id] %>" >Allez se reposer</a>
+    <%else%>
+        <a href="/start_quest?quest_id=<%= params[:quest_id] %>&step_id=<%= params[:step_id] %>">Next Step ! </a> 
+    <%end%>
+  <% elsif params[:win] == "false" %>
+    <% session[:enigme_message].each do |single| %>
+        <p><%= single %></p>
+      <% end %> 
+    <a href="/lost_quest">Retour au menu</a>
+  <% else %>
+    <h1>Votre quete <%=params[:quest]%> vous mène a cette étape : <%=params[:step]%> </h1>
 
-<h2> Vous devez répondre à une énigme ! </h2>
+    <h2> Vous devez répondre à une énigme ! </h2>
 
-<h3> <%= @enigme.titre %>  </h3>
+    <h3> <%= @enigme.titre %>  </h3>
 
-<p> réponse 1 : <%= @answers.reponse_1 %></p>
-<p> réponse 2 : <%= @answers.reponse_2 %></p>
-<p> réponse 3 : <%= @answers.reponse_3 %></p>
-
-<p> réponse vrai : <%= @answers.true %></p>
+    <%= form_with(model: @enigme, url: responses_path(@enigme),method: :get) do |form|%>
+        <%= form.hidden_field :id, value: @enigme.id %>
+      <p>
+        <label>
+          <input type="radio" name="reponse" value="<%= @answers.reponse_1 %>">
+          <%= @answers.reponse_1 %>
+        </label>
+      </p>
+      <p>
+        <label>
+          <input type="radio" name="reponse" value="<%= @answers.reponse_2 %>">
+          <%= @answers.reponse_2 %>
+        </label>
+      </p>
+      <p>
+        <label>
+          <input type="radio" name="reponse" value="<%= @answers.reponse_3 %>">
+          <%= @answers.reponse_3 %>
+        </label>
+      </p>
+      <%= form.submit "Soumettre" %>
+  <% end %>
 
 <%= link_to "Abandonner la quete", character_path(session[:character_id]) %>
+<% end %>

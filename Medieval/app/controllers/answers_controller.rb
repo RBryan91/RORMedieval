@@ -9,8 +9,13 @@ class AnswersController < ApplicationController
       def create
           @answer = Answer.new(answer_params)
           
-        if @answer.save
-          redirect_to new_step_path(quest_id:session[:quest_id])
+        if @answer.save          
+          if session[:quest_id]
+            redirect_to new_step_path(quest_id:session[:quest_id])
+          else
+          redirect_to master_path(current_master)  
+          end
+
           else
             puts "Answer #{@answer.enigme_id}"
             redirect_to new_answer_path(enigme_id:@answer.enigme_id)

@@ -1,5 +1,5 @@
 class StepsController < ApplicationController
-    before_action :require_login, except: [:startQuest]
+    before_action :require_login, except: [:startQuest,:lost_quest]
 
     def new
         @step = Step.new
@@ -35,38 +35,67 @@ class StepsController < ApplicationController
       end
     
     def startQuest
-      @quest = Quest.find(params[:quest_id])
+      @quest = Quest.includes(:item).find(params[:quest_id])
       @steps = Step.where(quest_id: @quest.id)
-      
+      session[:current_quest] = @quest.id
       @step_ids = @steps.map(&:id).sort
-
       @character = current_character
-
       @character.update(quest_id: @quest.id)
       @quest.update(character_id:@character.id)
       
       if params[:step_id].nil?
         @current_step = @steps.find_by(id: @step_ids.first)
         @current_step.update(character_id:@character.id)
+        session[:current_step] = @current_step.id
         redirect(@current_step,@quest.title)
-      elsif params[:step_id] == @step_ids.last
-        @finish = true
-        @current_step = @steps.find_by(id: @step_ids.last)
-        update_previous_steps_to_nil(@current_step)
-        @current_step.update(character_id:@character.id)
-        redirect(@current_step,@quest.title,@finish)
       else
-        @current_step = @steps.find_by(id: params[:step_id])
-        update_previous_steps_to_nil(@current_step)
-        @current_step.update(character_id:@character.id)
-        redirect(@current_step,@quest.title)
+        if params[:step_id].to_i == @step_ids.last.to_i
+          @current_step = @steps.find_by(id: @step_ids.last)
+          @current_step.update(character_id:nil)
+          update_previous_steps_to_nil(@current_step)
+          session.delete(:current_quest)
+          session.delete(:current_step)
+          session.delete(:combat_messages)
+          @character.update(quest_id: nil)
+          @quest.update(character_id:nil)
+          @character.update(po:@character.po + @quest.po)
+          level_up(@quest.xp)
+          inventory = Inventory.new(item_id:@quest.item.id,active:false,character_id:@character.id)
+          inventory.save
+          redirect_to character_path(@character,level:@level)
+        else
+          session.delete(:combat_messages)
+          step_index = @step_ids.index(params[:step_id].to_i) # Convert to integer for comparison
+          next_step_id = @step_ids[step_index + 1] if step_index
+          @current_step = @steps.find_by(id: next_step_id)
+          update_previous_steps_to_nil(@current_step)
+          @current_step.update(character_id:@character.id)
+          session[:current_step] = @current_step.id
+          redirect(@current_step,@quest.title)
+        end
       end
 
     end
 
+    def lost_quest
+      @character = current_character
+      @quest = Quest.find(session[:current_quest])
+      @steps = Step.where(quest_id: @quest.id)
+      @step_ids = @steps.map(&:id).sort
+      @current_step = Step.find(session[:current_step])
+      update_previous_steps_to_nil(@current_step)
+      @current_step.update(character_id:nil)
+      @character.update(quest_id: nil)
+      @quest.update(character_id:nil)
+      session.delete(:current_quest)
+      session.delete(:current_step)
+      session.delete(:combat_messages)
+      redirect_to character_path(@character)
+    end
+
     private
       def step_params 
-          params.require(:step).permit(:titre, :xp, :monster_id, :enigme_id, :quest_id)          
+          params.require(:step).permit(:titre, :xp, :monster_id, :enigme_id, :quest_id,:po)          
       end
 
       def redirect(current_step,title,finish = false)

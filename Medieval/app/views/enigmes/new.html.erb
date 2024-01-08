@@ -7,18 +7,15 @@
         <%= form_with model: @enigme do |form| %>
           <div>
             <%= form.label :titre %><br>
-            <%= form.text_field :titre %>
+            <%= form.text_area :titre %>
             <% @enigme.errors.full_messages_for(:titre).each do |message| %>
               <div><%= message %></div>
               <% end %>
           </div>
-
           <div>
             <%= form.submit 'Choice the question',  class: 'btn btn-primary button-connexion mt-3'%>
           </div>
         <% end %>
-
-
     </div>
   </div>
 </div>
