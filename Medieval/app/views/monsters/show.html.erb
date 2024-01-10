@@ -1,58 +1,124 @@
-<% if session[:combat_messages].nil? %>
-<h1>Votre quete <%=params[:quest]%> vous mène a cette étape : <%=params[:step]%> </h1>
-<%end%>
+<div class="container show-players-container">
+    <div class="row justify-content-center">
+        <div class="col-12 show-players-content show-monstre-fight-content">
 
-<h2> Un <%= @monster.name %> vous attaque ! </h2>
-<% if @monster.message %>
-<p> Le <%= @monster.name %> dit <%= @monster.message %> ! </p>
-<%end%>
+                <% if session[:combat_messages].nil? %>
+                <h1>Votre quete <%=params[:quest]%> vous mène a cette étape : <%=params[:step]%> </h1>
+                <%end%>
 
-<div>
-<%= image_tag @monster.avatar, alt: "Avatar" %>
+                <h2> Un <%= @monster.name %> vous attaque ! </h2>
+                <% if session[:combat_messages].nil? %>
+                <h1>Votre quete <%=params[:quest]%> vous mène a cette étape : <%=params[:step]%> </h1>
+                <%end%>
+                
+                <h2> Un <%= @monster.name %> vous attaque ! </h2>
+                <% if @monster.message %>
+                <p> Le <%= @monster.name %> dit <%= @monster.message %> ! </p>
+                <%end%>
+                
+                <div>
+                <%= image_tag @monster.avatar, alt: "Avatar" %>
+                
+                <% if session[:combat_messages] %>
+                    <%= image_tag "avatar/boum.png", alt: "Avatar" %>
+                <% end %>
+                <%= image_tag "avatar/character.png",size: "180x180", alt: "Avatar" %>
+                </div>
+                
+                <% if session[:combat_messages] %>
+                <% session[:combat_messages].each do |message| %>
+                  <p><%= message %></p>
+                <% end %>
+                <% if params[:drop] == "true" %>
+                    <div>
+                        <%= image_tag @monster.item.image, alt: "Avatar" %>
+                    </div>
+                <% end %>
+                
+                <% if params[:ended] == "true" %>
+                    <div>
+                        <%= image_tag @quest.item.image, alt: "Avatar" %>
+                    </div>
+                <% end %>
+                
+                <% if params[:defeat] == "true" %>
+                    <div>
+                        <%= image_tag "avatar/mort2.png", alt: "Avatar" %>
+                    </div>
+                <% end %>
+                
+                <%end%>
+                
+                <% if session[:combat_messages].nil? %>
+                    <a href="/fight?monster_id=<%= @monster.id %>">Fight !</a>
+                    <%= link_to "Abandonner la quete", character_path(session[:character_id]) %>
+                <%else%>
+                    <% unless params[:defeat] %>
+                        <% if params[:ended] == "true" %>
+                        <a href="/start_quest?quest_id=<%= params[:quest_id] %>&step_id=<%= params[:step_id] %>" >Allez se reposer</a>
+                        <%else%>
+                        <a href="/start_quest?quest_id=<%= params[:quest_id] %>&step_id=<%= params[:step_id] %>" >Next step !</a>
+                        <%= link_to "Abandonner la quete", character_path(session[:character_id]) %>
+                        <%end%>
+                    <%else%>
+                        <a href="/lost_quest">Retour au menu</a>
+                    <%end%>
+                <%end%>
+                
+                
+                <% if @monster.message %>
+                <p> Le <%= @monster.name %> dit <%= @monster.message %> ! </p>
+                <%end%>
 
-<% if session[:combat_messages] %>
-    <%= image_tag "avatar/boum.png", alt: "Avatar" %>
-<% end %>
-<%= image_tag "avatar/character.png",size: "180x180", alt: "Avatar" %>
+                <div>
+                <%= image_tag @monster.avatar, alt: "Avatar" %>
+
+                <% if session[:combat_messages] %>
+                    <%= image_tag "avatar/boum.png", alt: "Avatar" %>
+                <% end %>
+                <%= image_tag "avatar/character.png",size: "180x180", alt: "Avatar" %>
+                </div>
+
+                <% if session[:combat_messages] %>
+                <% session[:combat_messages].each do |message| %>
+                <p><%= message %></p>
+                <% end %>
+                <% if params[:drop] == "true" %>
+                    <div>
+                        <%= image_tag @monster.item.image, alt: "Avatar" %>
+                    </div>
+                <% end %>
+
+                <% if params[:ended] == "true" %>
+                    <div>
+                        <%= image_tag @quest.item.image, alt: "Avatar" %>
+                    </div>
+                <% end %>
+
+                <% if params[:defeat] == "true" %>
+                    <div>
+                        <%= image_tag "avatar/mort2.png", alt: "Avatar" %>
+                    </div>
+                <% end %>
+
+                <%end%>
+
+                <% if session[:combat_messages].nil? %>
+                    <a href="/fight?monster_id=<%= @monster.id %>">Fight !</a>
+                    <%= link_to "Abandonner la quete", character_path(session[:character_id]) %>
+                <%else%>
+                    <% unless params[:defeat] %>
+                        <% if params[:ended] == "true" %>
+                        <a href="/start_quest?quest_id=<%= params[:quest_id] %>&step_id=<%= params[:step_id] %>" >Allez se reposer</a>
+                        <%else%>
+                        <a href="/start_quest?quest_id=<%= params[:quest_id] %>&step_id=<%= params[:step_id] %>" >Next step !</a>
+                        <%= link_to "Abandonner la quete", character_path(session[:character_id]) %>
+                        <%end%>
+                    <%else%>
+                        <a href="/lost_quest">Retour au menu</a>
+                    <%end%>
+                <%end%>
+
+        </div>
+    </div>
 </div>
-
-<% if session[:combat_messages] %>
-<% session[:combat_messages].each do |message| %>
-  <p><%= message %></p>
-<% end %>
-<% if params[:drop] == "true" %>
-    <div>
-        <%= image_tag @monster.item.image, alt: "Avatar" %>
-    </div>
-<% end %>
-
-<% if params[:ended] == "true" %>
-    <div>
-        <%= image_tag @quest.item.image, alt: "Avatar" %>
-    </div>
-<% end %>
-
-<% if params[:defeat] == "true" %>
-    <div>
-        <%= image_tag "avatar/mort2.png", alt: "Avatar" %>
-    </div>
-<% end %>
-
-<%end%>
-
-<% if session[:combat_messages].nil? %>
-    <a href="/fight?monster_id=<%= @monster.id %>">Fight !</a>
-    <%= link_to "Abandonner la quete", character_path(session[:character_id]) %>
-<%else%>
-    <% unless params[:defeat] %>
-        <% if params[:ended] == "true" %>
-        <a href="/start_quest?quest_id=<%= params[:quest_id] %>&step_id=<%= params[:step_id] %>" >Allez se reposer</a>
-        <%else%>
-        <a href="/start_quest?quest_id=<%= params[:quest_id] %>&step_id=<%= params[:step_id] %>" >Next step !</a>
-        <%= link_to "Abandonner la quete", character_path(session[:character_id]) %>
-        <%end%>
-    <%else%>
-        <a href="/lost_quest">Retour au menu</a>
-    <%end%>
-<%end%>
-
