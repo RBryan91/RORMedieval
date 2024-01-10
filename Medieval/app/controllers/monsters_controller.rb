@@ -56,7 +56,7 @@ class MonstersController < ApplicationController
             end
             if @step.id == @step_ids.last
               @combat_messages << "You dit it ! You finished the quest #{@quest.title} !!! Well played Hero ! "
-              @combat_messages << "You received #{@quest.item.name}, #{@quest.po} po and #{@quest.xp} as a reward !!!"
+              @combat_messages << "You received #{@quest.item.name}, #{@quest.po} po and #{@quest.xp} xp as a reward !!!"
               @ended = true
             else
               @combat_messages << "You finished with success the step #{@step.titre}. Continue your quest #{@quest.title} !"
@@ -64,7 +64,7 @@ class MonstersController < ApplicationController
             session[:combat_messages] = @combat_messages
             @character.update(pv:@character_original_pv)
             @monster.update(pv:@monster_original_pv)
-            redirect_to monster_path(@monster,quest_id:@quest.id,step_id:@step.id,ended:@ended,drop:@drop)
+            redirect_to monster_path(@monster,quest_id:@quest.id,step_id:@step.id,ended:@ended,drop:@drop,avatar:@character.avatar)
             return
           end
 
@@ -82,14 +82,14 @@ class MonstersController < ApplicationController
             session[:combat_messages] = @combat_messages
             @character.update(pv:@character_original_pv)
             @monster.update(pv:@monster_original_pv)
-            redirect_to monster_path(@monster,quest_id:@quest.id,step_id:@step.id,defeat: true)
+            redirect_to monster_path(@monster,quest_id:@quest.id,step_id:@step.id,defeat: true,avatar:@character.avatar)
             return
           end
         end
         # If the loop exits without redirection, something unexpected happened
         @combat_messages << 'An unexpected error occurred during the fight.'
         session[:combat_messages] = @combat_messages
-        redirect_to monster_path(@monster,quest_id:@quest.id,step_id:@step.id)
+        redirect_to monster_path(@monster,quest_id:@quest.id,step_id:@step.id,avatar:@character.avatar)
       end
   
       def create

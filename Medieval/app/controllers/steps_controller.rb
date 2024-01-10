@@ -65,7 +65,7 @@ class StepsController < ApplicationController
           redirect_to character_path(@character,level:@level)
         else
           session.delete(:combat_messages)
-          step_index = @step_ids.index(params[:step_id].to_i) # Convert to integer for comparison
+          step_index = @step_ids.index(params[:step_id].to_i)
           next_step_id = @step_ids[step_index + 1] if step_index
           @current_step = @steps.find_by(id: next_step_id)
           update_previous_steps_to_nil(@current_step)
@@ -105,7 +105,8 @@ class StepsController < ApplicationController
         end
         if current_step.monster_id
           monster = Monster.includes(:item).find(current_step.monster_id)
-          redirect_to monster_path(monster,finish:finish,quest:title,step:current_step.titre)
+          character = current_character
+          redirect_to monster_path(monster,finish:finish,quest:title,step:current_step.titre,avatar:character.avatar)
         end
       end
 

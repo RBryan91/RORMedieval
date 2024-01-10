@@ -14,12 +14,17 @@
               <% end %>
           </div>
 
+          <div class="row justify-content-around">
           <div>
             <b><%= form.label :category %></b><br>
-            <%= form.collection_select :category, ["Arme", "Bouclier", "Casque"], :to_s, :humanize %>
+            <%= form.collection_select :category, ["Arme", "Bouclier", "Casque"], :to_s, :humanize, id: "category-select" %>
             <% @item.errors.full_messages_for(:category).each do |message| %>
               <div><%= message %></div>
               <% end %>
+          </div>
+          <div id="image-container">
+              <%= image_tag "avatar/epee.png", alt: "Avatar", id: "item-image" %>
+            </div>
           </div>
 
           <div>
@@ -54,3 +59,18 @@
      </div>
   </div>
 </div>
+
+<script>
+    $(document).on('change', '#item_category', function() {
+     var originalCategory = $(this).val();
+     var updatedCategory = originalCategory;
+      if (originalCategory === "Arme") updatedCategory = "epee";
+      if (originalCategory === "Casque") updatedCategory = "capuche";
+      var imageUrl = "/assets/avatar/" + updatedCategory.toLowerCase() + ".png";
+    $("#item-image").attr("src", imageUrl);
+
+    updateImage();
+
+    $("#category-select").on("change", updateImage);
+  });
+</script>

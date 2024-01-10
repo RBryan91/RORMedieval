@@ -51,7 +51,7 @@
 .body-main{
 
     background-image: url('../assets/background-main.png');
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-color: #000000;
   }
@@ -72,11 +72,12 @@
 
   .show-players-container{
     margin: 3rem;
-    text-align: center;
+    justify-content: center;
   }
 
   .show-players-content{
     color: #fff;
+    justify-content: center;
   }
 
   .arrow {
@@ -86,6 +87,24 @@
     padding: 4px;
     position: relative;
     top: -0.3rem;
+}
+.stuff-column{
+  background-image: url('../assets/inventaire.png');
+  min-height: 478px;
+}
+.Arme{
+  min-height: 125px;
+  min-width: 100px;
+}
+.Casque{
+  min-height: 225px;
+  min-width: 100px;
+  margin: auto;
+}
+
+.btn-inventaire{
+  margin-left: 125px;
+  margin-top: 75px
 }
 
 .down {

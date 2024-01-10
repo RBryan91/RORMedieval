@@ -72,6 +72,6 @@ class CharactersController < ApplicationController
        params.require(:character).permit(:name, :force, :pv, :player_id, :po, :level, :xp, :bonus_xp, :avatar)
      end
      def character_params_edit
-      params.require(:character).permit(:force, :pv, :xp, :level, :po, :bonus_xp)
+      params.require(:character).permit(:force, :pv, :xp, :level, :po, :bonus_xp,:avatar)
     end
   end

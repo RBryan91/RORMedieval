@@ -17,7 +17,6 @@ class AnswersController < ApplicationController
           end
 
           else
-            puts "Answer #{@answer.enigme_id}"
             redirect_to new_answer_path(enigme_id:@answer.enigme_id)
           end
       end

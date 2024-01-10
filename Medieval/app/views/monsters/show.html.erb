@@ -13,7 +13,7 @@
 <% if session[:combat_messages] %>
     <%= image_tag "avatar/boum.png", alt: "Avatar" %>
 <% end %>
-<%= image_tag "avatar/character.png",size: "180x180", alt: "Avatar" %>
+<%= image_tag params[:avatar], size: "180x180", alt: "Avatar" %>
 </div>
 
 <% if session[:combat_messages] %>

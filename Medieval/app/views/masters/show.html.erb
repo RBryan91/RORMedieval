@@ -35,8 +35,7 @@
                 <% else %>
                     <p>Vous avez pas de quete</p>
                 <% end %>
-                
-                <%if @quest_in_progress%>
+                <%if @quest_in_progress.any?%>
                 <h3>Some adventurers are currently trying to succeed your quests !!</h3>
                 <% @quest_in_progress.each do |quest| %>
                 <p>The hero <%= quest.character.name %> started <%= quest.title %> and is at this step : <%= quest.steps.last.titre %>.</p>

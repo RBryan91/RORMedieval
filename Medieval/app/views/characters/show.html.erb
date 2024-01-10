@@ -1,131 +1,178 @@
-<div class="container-fluid show-players-container">
-  <div class="container-fluid">
-    <div class="show-players-content">
-        <div class="container">
+<div class="container-fluid show-players-container w-100">
+  <div class="show-players-content">
+    <div class="row container-fluid">
+      <div class="col-3">
+        <div class="row bg-secondary justify-content-between pr-2">
           <div class="col">
             <%= image_tag @character.avatar, alt: "Avatar" %>
             <h1><%= @character.name %></h1>
           </div>
-          <div class="col">
-            <p> xp : <%= @character.xp %></p>
-            <p> force : <%= @character.force %></p>
-            <p> pv : <%= @character.pv %></p>
-            <p> bonus_xp : <%= @character.bonus_xp %>% </p>
-            <p> po : <%= @character.po %></p>
-            <p> level : <%= @character.level %></p>
-            <% if session[:level] == true %>
-            <%= link_to "Level UP !", edit_character_path(@character) %>
-            <%end%>
+          <div class="row">
+            <div class="col">
+              <p> xp : <%= @character.xp %></p>
+              <p> force : <%= @character.force %></p>
+              <p> pv : <%= @character.pv %></p>
+              <a class="btn btn-primary button-connexion" href = "/hdv">Hdv</a>
+            </div>
+            <div class="col">
+               <p style="width: max-content"><%= "bonus_xp : #{@character.bonus_xp}%" %></p>
+              <p> po : <%= @character.po %></p>
+              <p> level : <%= @character.level %></p>
+              <% if session[:level] == true %>
+              <%= link_to "Level UP !", edit_character_path(@character) %>
+              <%end%>
+            </div>
           </div>
         </div>
 
-          <a class="btn btn-primary button-connexion" href = "/hdv">Hdv</a>
-
-          <% inactive_items = @inventories.select { |item| !item.active } %>
-          <% active_items = @inventories.select { |item| item.active } %>
-
-          <% flash.each do |key, message| %>
-            <div class="flash <%= key %>">
-              <%= message %>
-            </div>
-          <% end %>
-
-          <div class="inventory-column">
-            <h2>Inventory</h2>
-            <% if inactive_items.present? %>
-              <%= form_tag(move_items_path, method: :patch) do %>
-                <% inactive_items.each do |item| %>
-                  <div>
-                    <%= check_box_tag "item_ids[]", item.id %>
-                    <%= item.item.name %>
-                    <%= image_tag item.item.image, alt: "Avatar" %>
-                    <div>
-                    <%if item.item.force != 0 %>
-                      <p> Bonus de force : <%= item.item.force%></p>
-                    <%end%>
-                    <%if item.item.pv != 0 %>
-                      <p> Bonus de vie : <%= item.item.pv%></p>
-                    <%end%>
-                    <%if item.item.xp != 0 %>
-                      <p> Bonus d'xp : <%= item.item.xp%>%</p>
-                    <%end%>
-                    </div>
-                  </div>
-                  <br>
-                <% end %>
-                <%= submit_tag "Move to Stuff", name: "move_to_stuff" %>
-              <% end %>
-            <% else %>
-              <p>Votre inventaire est vide.</p>
-            <% end %>
-          </div>
-
-          <div class="stuff-column">
-            <h2>Stuff</h2>
-            <% if active_items.present? %>
-              <%= form_tag(move_items_path, method: :patch) do %>
-                <% active_items.each do |item| %>
-                  <label>
-                    <%= check_box_tag "item_ids[]", item.id %>
-                    <%= item.item.name %>
-                    <%= image_tag item.item.image, alt: "Avatar" %>
-                    <%if item.item.force != 0 %>
-                      <p> Bonus de force : <%= item.item.force%></p>
-                    <%end%>
-                    <%if item.item.pv != 0 %>
-                      <p> Bonus de vie : <%= item.item.pv%></p>
-                    <%end%>
-                    <%if item.item.xp != 0 %>
-                      <p> Bonus d'xp : <%= item.item.xp%>%</p>
-                    <%end%>
-                  </label>
-                  <br>
-                <% end %>
-                <%= submit_tag "Move to Inventory", name: "move_to_inventory" %>
-              <% end %>
-            <% else %>
-              <p>Vous avez pas de stuff equipé.</p>
-            <% end %>
-          </div>
-
-          <div class="quete-column">
-            <h2>Quetes disponibles</h2>
-            <% quests_to_display = @valid_quetes.reject { |quest| @in_progress.include?(quest) } %>
-            <% if quests_to_display.size > 0 %>
-              <ul>
-                <% quests_to_display.each do |quete| %> 
-                  <li><a href="/start_quest?quest_id=<%= quete.id %>" ><%= quete.title %></a> - Level <%= quete.level %></li>
-                <% end %>
-              </ul>
-              <% else %>
-              <p>Vous avez pas de quete disponible.</p>
-            <% end %>
-          </div>
-
-          <div class="quete-en-cour-column">
-            <h2>Quetes en cours</h2>
-            <% if @in_progress.size > 0 %>
-              <ul>
-                <% @in_progress.each do |quete| %>
-                  <li><%= quete.title %> - Level <%= quete.level %></li>
-                  <% if @in_progressStep.size > 0 %>
-                    <ul>
-                      <% @in_progressStep.each do |step| %>
-                      <% if step.quest_id == quete.id %>
-                        <li><a href="/start_quest?quest_id=<%= quete.id %>?step_id=<%= step.id %>" ><%= step.titre %></a></li>
-                      <% end %>
-                      <% end %>
-                    </ul>
-                  <% end %>
-                <% end %>
-              </ul>
-            <% else %>
-              <p>Vous n'avez pas de quête en cours.</p>
-            <% end %>
-          </div>
-
+        <div class="row justify-content-start">
           <%= link_to "Retour", player_path(session[:player_id]) %>
-          <a href="/delete_character?character_id=<%= @character.id %>">Supprimer</a>
+          <a href="/delete_character?character_id=<%= @character.id %>" class="px-2">Supprimer</a>
+        </div>
+      </div>
+
+      <% flash.each do |key, message| %>
+        <div class="flash <%= key %>">
+          <%= message %>
+        </div>
+      <% end %>
+
+      <div class="col-9 inventory-column">
+        <% inactive_items = @inventories.select { |item| !item.active } %>
+        <% if inactive_items.present? %>
+          <%= form_tag(move_items_path, method: :patch) do %>
+            <div class="row">
+              <% inactive_items.each do |item| %>
+                <div class="col-2">                    
+                  <div class="mx-auto col" data-toggle="tooltip" data-html="true" data-placement="right" style="width: 80px" title="
+                    <div>
+                      <%= item.item.name %>
+                      <%if item.item.force != 0 %>
+                        <p> Bonus de force : <%= item.item.force%></p>
+                      <%end%>
+                      <%if item.item.pv != 0 %>
+                        <p> Bonus de vie : <%= item.item.pv%></p>
+                      <%end%>
+                      <%if item.item.xp != 0 %>
+                        <p> Bonus d'xp : <%= item.item.xp%>%</p>
+                      <%end%>
+                    </div>">
+                    <%= image_tag item.item.image, alt: "Avatar" %>
+                    <%= check_box_tag "item_ids[]", item.id, class: "ml-4" %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <%= submit_tag "Move to Stuff", name: "move_to_stuff" %>
+        <% end %>
+        <% else %>
+          <p>Votre inventaire est vide.</p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="stuff-column w-25">
+        <% active_items = @inventories.select { |item| item.active } %>
+
+        <%= form_tag(move_items_path, method: :patch) do %>
+
+          <% # Group items by category %>
+          <% items_by_category = active_items.group_by { |item| item.item.category } %>
+
+          <div>
+            <% # "Casque" Category %>
+            <% casque_items = items_by_category["Casque"] || [] %>
+              <div class="Casque">
+                <% casque_items.each do |item| %>
+                  <div class="col mx-auto pt-4" data-toggle="tooltip" data-html="true" data-placement="right" style="width: 100px" title="
+                    <div>
+                      <%= item.item.name %>
+                      <%if item.item.force != 0 %>
+                        <p> Bonus de force : <%= item.item.force%></p>
+                      <%end%>
+                      <%if item.item.pv != 0 %>
+                        <p> Bonus de vie : <%= item.item.pv%></p>
+                      <%end%>
+                      <%if item.item.xp != 0 %>
+                        <p> Bonus d'xp : <%= item.item.xp%>%</p>
+                      <%end%>
+                    </div>">
+                    <%= image_tag item.item.image, alt: "Avatar" %>
+                    <%= check_box_tag "item_ids[]", item.id, class: "ml-4" %>
+                  </div>
+                <% end %>
+              </div>
+
+            <% # "Bouclier" and "Arme" Categories %>
+            <% other_categories = ["Bouclier", "Arme"] %>
+            <div class="row justify-content-around">
+              <% other_categories.each do |category| %>
+                <% category_items = items_by_category[category] || [] %>
+                <div class="Arme">
+                  <% category_items.each do |item| %>
+                    <div class="col" data-toggle="tooltip" data-html="true" data-placement="right" style="width: 100px" title="
+                      <div>
+                        <%= item.item.name %>
+                        <%if item.item.force != 0 %>
+                          <p> Bonus de force : <%= item.item.force%></p>
+                        <%end%>
+                        <%if item.item.pv != 0 %>
+                          <p> Bonus de vie : <%= item.item.pv%></p>
+                        <%end%>
+                        <%if item.item.xp != 0 %>
+                          <p> Bonus d'xp : <%= item.item.xp%>%</p>
+                        <%end%>
+                      </div>">
+                      <%= image_tag item.item.image, alt: "Avatar" %>
+                      <%= check_box_tag "item_ids[]", item.id, class: "ml-4" %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <%= submit_tag "Move to Inventory", name: "move_to_inventory", class: "btn-inventaire" %>
+        <% end %>
+      </div>
+
+      <div class="row w-75 justify-content-around mt-3 px-5">
+        <div class="quete-column">
+          <h2>Quetes disponibles</h2>
+          <% quests_to_display = @valid_quetes.reject { |quest| @in_progress.include?(quest) } %>
+          <% if quests_to_display.size > 0 %>
+            <ul>
+              <% quests_to_display.each do |quete| %> 
+                <li><a href="/start_quest?quest_id=<%= quete.id %>" ><%= quete.title %></a> - Level <%= quete.level %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>Vous avez pas de quete disponible.</p>
+          <% end %>
+        </div>
+
+        <div class="quete-en-cour-column">
+          <h2>Quetes en cours</h2>
+          <% if @in_progress.size > 0 %>
+            <ul>
+              <% @in_progress.each do |quete| %>
+                <li><%= quete.title %> - Level <%= quete.level %></li>
+                <% if @in_progressStep.size > 0 %>
+                  <ul>
+                    <% @in_progressStep.each do |step| %>
+                      <% if step.quest_id == quete.id %>
+                        <li><a href="/start_quest?quest_id=<%= quete.id %>&step_id=<%= step.id %>"><%= step.titre %></a></li>
+                      <% end %>
+                    <% end %>
+                  </ul>
+                <% end %>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>Vous n'avez pas de quête en cours.</p>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
